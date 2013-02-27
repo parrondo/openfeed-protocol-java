@@ -1,6 +1,22 @@
-*.class
+#
+# Eclipse metadata.
+#
+.project
+.classpath
+.settings/
 
-# Package Files #
-*.jar
-*.war
-*.ear
+#
+# Eclipse build folder.
+#
+bin/
+
+#
+# Maven build folder.
+#
+target/
+
+#
+# Maven release metadata
+#
+release.properties
+pom.xml.*
