@@ -1,4 +1,2 @@
-openfeed-protocol
-=================
 
-OpenFeed protocol definitions and templates
+### OpenFeed protocol modules repository.
