@@ -1,0 +1,46 @@
+<!--
+
+    Copyright (C) 2011-2013 Barchart, Inc. <http://www.barchart.com/>
+
+    All rights reserved. Licensed under the OSI BSD License.
+
+    http://www.opensource.org/licenses/bsd-license.php
+
+-->
+<!--
+	Verify marketdata templates. 
+-->
+<project default="maven" basedir="./..">
+
+	<echo message="basedir : ${basedir}" />
+
+	<target name="maven">
+
+		<condition property="executable" value="mvn">
+			<os family="unix" />
+		</condition>
+		<condition property="executable" value="mvn.bat">
+			<os family="windows" />
+		</condition>
+
+		<!-- Templates project. -->
+		<property name="openfeed-protocol" value="${basedir}/../openfeed-protocol" />
+
+		<!-- Marketdata project. -->
+		<property name="openfeed-protocol-instrument" value="${basedir}/openfeed-protocol-instrument" />
+
+		<!-- Publish templates. -->
+		<exec executable="${executable}" dir="${openfeed-protocol}">
+			<arg value="clean" />
+			<arg value="install" />
+		</exec>
+
+		<!-- Apply templates. -->
+		<exec executable="${executable}" dir="${openfeed-protocol-instrument}">
+			<arg value="clean" />
+			<arg value="install" />
+		</exec>
+
+	</target>
+
+</project>

@@ -67,7 +67,6 @@ OpenFeed is open standard for market data delivery.
 
 	<build>
 
-
 		<pluginManagement>
 
 			<plugins>
@@ -81,6 +80,7 @@ OpenFeed is open standard for market data delivery.
 					<configuration>
 						<lifecycleMappingMetadata>
 							<pluginExecutions>
+								<!-- Unpack templates from maven only. -->
 								<pluginExecution>
 									<pluginExecutionFilter>
 										<groupId>org.apache.maven.plugins</groupId>
@@ -94,10 +94,25 @@ OpenFeed is open standard for market data delivery.
 										<ignore />
 									</action>
 								</pluginExecution>
+								<!-- Process templates from maven only. -->
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>com.github.igor-petruk.protobuf</groupId>
+										<artifactId>protobuf-maven-plugin</artifactId>
+										<versionRange>[0,)</versionRange>
+										<goals>
+											<goal>run</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
 							</pluginExecutions>
 						</lifecycleMappingMetadata>
 					</configuration>
 				</plugin>
+
 			</plugins>
 
 		</pluginManagement>
@@ -212,7 +227,7 @@ OpenFeed is open standard for market data delivery.
 						<executions>
 							<!-- Add protocol template folders. -->
 							<execution>
-								<id>protocol-resources</id>
+								<id>protocol-template</id>
 								<phase>generate-sources</phase>
 								<goals>
 									<goal>add-resource</goal>
@@ -225,16 +240,29 @@ OpenFeed is open standard for market data delivery.
 									</resources>
 								</configuration>
 							</execution>
-							<!-- Add generated java code folders. -->
+							<!-- Add generated main java folders. -->
 							<execution>
-								<id>protocol-sources</id>
+								<id>protocol-main-sources</id>
 								<phase>generate-sources</phase>
 								<goals>
 									<goal>add-source</goal>
 								</goals>
 								<configuration>
 									<sources>
-										<source>${templateModuleFolder}</source>
+										<source>${templateMainJavaFolder}</source>
+									</sources>
+								</configuration>
+							</execution>
+							<!-- Add generated test java folders. -->
+							<execution>
+								<id>protocol-test-sources</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>add-source</goal>
+								</goals>
+								<configuration>
+									<sources>
+										<source>${templateTestJavaFolder}</source>
 									</sources>
 								</configuration>
 							</execution>
