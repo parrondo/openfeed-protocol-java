@@ -33,10 +33,20 @@ OpenFeed is open standard for market data delivery.
 	<packaging>bundle</packaging>
 
 	<scm>
-		<url>https://github.com/openfeed-project/openfeed-protocol</url>
-		<connection>scm:git:git://github.com/openfeed-project/openfeed-protocol.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com/openfeed-project/openfeed-protocol.git</developerConnection>
+		<url>https://github.com/openfeed-project/openfeed-protocol-java</url>
+		<connection>scm:git:git://github.com/openfeed-project/openfeed-protocol-java.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/openfeed-project/openfeed-protocol-java.git</developerConnection>
 		<tag>master</tag>
 	</scm>
+
+	<properties>
+
+		<!-- Protocol template module. -->
+		<templateModuleName>instrument</templateModuleName>
+
+		<!-- Protocol template version. -->
+		<projectTemplateVersion>1.0.0-SNAPSHOT</projectTemplateVersion>
+
+	</properties>
 
 </project>

@@ -34,25 +34,10 @@ OpenFeed is open standard for market data delivery.
 	</description>
 
 	<scm>
-		<url>https://github.com/openfeed-project/openfeed-protocol</url>
-		<connection>scm:git:git://github.com/openfeed-project/openfeed-protocol.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com/openfeed-project/openfeed-protocol.git</developerConnection>
+		<url>https://github.com/openfeed-project/openfeed-protocol-java</url>
+		<connection>scm:git:git://github.com/openfeed-project/openfeed-protocol-java.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/openfeed-project/openfeed-protocol-java.git</developerConnection>
 		<tag>master</tag>
 	</scm>
-
-	<properties>
-
-	</properties>
-
-	<dependencies>
-
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>13.0.1</version>
-			<scope>provided</scope>
-		</dependency>
-
-	</dependencies>
 
 </project>

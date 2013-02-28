@@ -1,13 +1,7 @@
-<!--
-
-    Copyright (C) 2011-2013 Barchart, Inc. <http://www.barchart.com/>
-
-    All rights reserved. Licensed under the OSI BSD License.
-
-    http://www.opensource.org/licenses/bsd-license.php
-
--->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<!-- Copyright (C) 2011-2013 Barchart, Inc. <http://www.barchart.com/> All 
+	rights reserved. Licensed under the OSI BSD License. http://www.opensource.org/licenses/bsd-license.php -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
@@ -15,7 +9,7 @@
 		<groupId>org.openfeed.base</groupId>
 		<artifactId>openfeed-archon</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
-		<relativePath/>
+		<relativePath />
 	</parent>
 
 	<groupId>org.openfeed.proto</groupId>
@@ -34,13 +28,16 @@ OpenFeed is open standard for market data delivery.
 	</description>
 
 	<scm>
-		<url>https://github.com/openfeed-project/openfeed-protocol</url>
-		<connection>scm:git:git://github.com/openfeed-project/openfeed-protocol.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com/openfeed-project/openfeed-protocol.git</developerConnection>
+		<url>https://github.com/openfeed-project/openfeed-protocol-java</url>
+		<connection>scm:git:git://github.com/openfeed-project/openfeed-protocol-java.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/openfeed-project/openfeed-protocol-java.git</developerConnection>
 		<tag>master</tag>
 	</scm>
 
 	<properties>
+
+		<!-- Protocol templates version. -->
+		<projectTemplateVersion>1.0.0-SNAPSHOT</projectTemplateVersion>
 
 	</properties>
 
@@ -53,7 +50,7 @@ OpenFeed is open standard for market data delivery.
 			<version>2.4.1</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<!-- Logging library. -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -69,78 +66,185 @@ OpenFeed is open standard for market data delivery.
 	</dependencies>
 
 	<build>
-		<plugins>
 
-			<!-- Generate java source from *.proto files. -->
-			<plugin>
-				<groupId>com.github.igor-petruk.protobuf</groupId>
-				<artifactId>protobuf-maven-plugin</artifactId>
-				<version>0.6.2</version>
-				<executions>
-					<execution>
-						<id>protocol-sources</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-						<configuration>
-							<ignoreVersions>false</ignoreVersions>
-							<inputDirectories>
-								<entry>src/main/resources/protobuf</entry>
-							</inputDirectories>
-							<outputDirectory>target/main/protobuf</outputDirectory>
-						</configuration>
-					</execution>
-					<execution>
-						<id>protocol-test-sources</id>
-						<phase>generate-test-sources</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-						<configuration>
-							<ignoreVersions>false</ignoreVersions>
-							<inputDirectories>
-								<entry>src/test/resources/protobuf</entry>
-							</inputDirectories>
-							<outputDirectory>target/test/protobuf</outputDirectory>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 
-			<!-- Make generated *.java files available for the build. -->
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>protocol-sources</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>add-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>target/main/protobuf</source>
-							</sources>
-						</configuration>
-					</execution>
-					<execution>
-						<id>protocol-test-sources</id>
-						<phase>generate-test-sources</phase>
-						<goals>
-							<goal>add-test-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>target/test/protobuf</source>
-							</sources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+		<pluginManagement>
 
-		</plugins>
+			<plugins>
+
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-dependency-plugin</artifactId>
+										<versionRange>[0,)</versionRange>
+										<goals>
+											<goal>unpack</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+
+		</pluginManagement>
+
 	</build>
+
+	<profiles>
+
+		<!-- Process template files. -->
+		<profile>
+			<id>process-template</id>
+			<activation>
+				<file>
+					<exists>process-template.md</exists>
+				</file>
+			</activation>
+			<properties>
+
+				<!-- Location of all extracted templates. -->
+				<templateRootFolder>${basedir}/target/template</templateRootFolder>
+
+				<!-- Template module name, must be provided by each module. -->
+				<templateModuleName>unknown</templateModuleName>
+
+				<!-- Location of module extracted templates. -->
+				<templateModuleFolder>${templateRootFolder}/${templateModuleName}</templateModuleFolder>
+
+				<!-- Location of generated main/java code. -->
+				<templateMainJavaFolder>${basedir}/target/java/main</templateMainJavaFolder>
+
+				<!-- Location of generated test/java code. -->
+				<templateTestJavaFolder>${basedir}/target/java/test</templateTestJavaFolder>
+
+			</properties>
+			<build>
+				<plugins>
+
+					<!-- Extract all protocol templates. -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>unpack</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>unpack</goal>
+								</goals>
+								<configuration>
+									<artifactItems>
+										<artifactItem>
+											<groupId>org.openfeed.proto</groupId>
+											<artifactId>openfeed-protocol</artifactId>
+											<version>${projectTemplateVersion}</version>
+											<classifier>template</classifier>
+											<type>zip</type>
+										</artifactItem>
+									</artifactItems>
+									<overWriteIfNewer>true</overWriteIfNewer>
+									<overWriteReleases>true</overWriteReleases>
+									<overWriteSnapshots>true</overWriteSnapshots>
+									<outputDirectory>${templateRootFolder}</outputDirectory>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<!-- Generate java source from *.proto files. -->
+					<plugin>
+						<groupId>com.github.igor-petruk.protobuf</groupId>
+						<artifactId>protobuf-maven-plugin</artifactId>
+						<version>0.6.2</version>
+						<executions>
+							<!-- Generate main sources. -->
+							<execution>
+								<id>protocol-main-sources</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<ignoreVersions>false</ignoreVersions>
+									<inputDirectories>
+										<entry>${templateModuleFolder}</entry>
+										<entry>${basedir}/src/main/resources</entry>
+									</inputDirectories>
+									<outputDirectory>${templateMainJavaFolder}</outputDirectory>
+								</configuration>
+							</execution>
+							<!-- Generate test sources. -->
+							<execution>
+								<id>protocol-test-sources</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<ignoreVersions>false</ignoreVersions>
+									<inputDirectories>
+										<entry>${basedir}/src/test/resources</entry>
+									</inputDirectories>
+									<outputDirectory>${templateTestJavaFolder}</outputDirectory>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<!-- Make generated resources available for the build. -->
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<executions>
+							<!-- Add protocol template folders. -->
+							<execution>
+								<id>protocol-resources</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>add-resource</goal>
+								</goals>
+								<configuration>
+									<resources>
+										<resource>
+											<directory>${templateModuleFolder}</directory>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
+							<!-- Add generated java code folders. -->
+							<execution>
+								<id>protocol-sources</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>add-source</goal>
+								</goals>
+								<configuration>
+									<sources>
+										<source>${templateModuleFolder}</source>
+									</sources>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+				</plugins>
+			</build>
+		</profile>
+
+	</profiles>
 
 </project>
