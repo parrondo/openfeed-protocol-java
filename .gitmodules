@@ -1,6 +1,8 @@
-[submodule "openfeed-protocol"]
-	path = openfeed-protocol
-	url = ssh://git@github.com/openfeed-project/openfeed-archon.git
+
 [submodule "openfeed-archon"]
 	path = openfeed-archon
 	url = git@github.com:openfeed-project/openfeed-archon.git
+	
+[submodule "openfeed-protocol"]
+	path = openfeed-protocol
+	url = git@github.com/openfeed-project/openfeed-protocol.git
