@@ -1,0 +1,3 @@
+[submodule "openfeed-protocol"]
+	path = openfeed-protocol
+	url = ssh://git@github.com/openfeed-project/openfeed-archon.git
