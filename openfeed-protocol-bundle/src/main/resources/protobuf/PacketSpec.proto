@@ -1,0 +1,62 @@
+/**
+ * Copyright (C) 2011-2013 Barchart, Inc. <http://www.barchart.com/>
+ *
+ * All rights reserved. Licensed under the OSI BSD License.
+ *
+ * http://www.opensource.org/licenses/bsd-license.php
+ */
+
+// Non-java (C, C++, etc) package name space
+package barchart_assm;
+
+// Builder options.
+option java_package = "com.barchart.proto.buf.assm";
+option java_outer_classname = "PacketSpec";
+option java_multiple_files = true;
+option java_generate_equals_and_hash = true;
+option optimize_for = SPEED;
+
+// Packet type for all messages.
+enum PacketType {
+
+	MarketData = 1;
+	MarketNews = 2;
+	Instrument = 3;
+	Session = 4;
+	//
+	DataSubscribeRequest = 100;
+	DataSubscribeResponse = 101;
+	//
+	NewsSubscribeRequest = 102;
+	NewsSubscribeResponse = 103;
+	//
+	InstrumentRequest = 104;
+	InstrumentResponse = 105;
+	//
+	LoginRequest = 106;
+	LoginResponse = 107;
+	//
+	HeartBeat = 127;
+	//
+}
+
+// Generic packet, ignorant of body content.
+message Packet {
+
+	// Packet channel number.
+	optional sint32 channel = 1;
+
+	// Packet sequence number inside the channel.
+	optional sint64 sequence = 2;
+
+	// Packet time stamp, millisFIX, UTC
+	optional sint64 timeStamp = 3;
+
+	// Packet body type selector
+	optional PacketType type = 4;
+
+	// Message content, opaque byte array.
+	optional bytes body = 5;
+
+	//
+}

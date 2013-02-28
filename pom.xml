@@ -25,15 +25,23 @@
 	<packaging>pom</packaging>
 
 	<description>
-		Eclipse/Maven module import helper.
+<![CDATA[
+### Eclipse/Maven module import helper
+
+OpenFeed is open standard for market data delivery.
+
+]]>
 	</description>
 
 	<modules>
 
 		<module>openfeed-protocol-archon</module>
 		<module>openfeed-protocol-bundle</module>
+		<module>openfeed-protocol-example</module>
 		<module>openfeed-protocol-instrument</module>
 		<module>openfeed-protocol-marketdata</module>
+		<module>openfeed-protocol-tests</module>
+		<module>openfeed-protocol-tools</module>
 		<module>openfeed-protocol-utilities</module>
 
 	</modules>

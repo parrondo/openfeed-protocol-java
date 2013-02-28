@@ -23,42 +23,21 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
+	<description>
+<![CDATA[
+
+### OpenFeed shared utilities module
+
+OpenFeed is open standard for market data delivery.
+
+]]>
+	</description>
+
 	<scm>
 		<url>https://github.com/openfeed-project/openfeed-protocol</url>
 		<connection>scm:git:git://github.com/openfeed-project/openfeed-protocol.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/openfeed-project/openfeed-protocol.git</developerConnection>
 		<tag>master</tag>
 	</scm>
-
-	<properties>
-
-	</properties>
-
-	<dependencies>
-
-		<!-- MAIN -->
-
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>13.0.1</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<!-- logging -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<scope>provided</scope>
-		</dependency>
-
-		<!-- TEST -->
-
-	</dependencies>
 
 </project>

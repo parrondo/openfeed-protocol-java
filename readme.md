@@ -1,2 +1,3 @@
+### Eclipse/Maven module import helper
 
-### OpenFeed protocol modules repository.
+OpenFeed is open standard for market data delivery.

@@ -7,11 +7,11 @@
  */
 package bench;
 
+import org.openfeed.proto.util.date.DateTimeValue;
+import org.openfeed.proto.util.date.ProtoDateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.barchart.proto.util.date.DateTimeValue;
-import com.barchart.proto.util.date.ProtoDateUtil;
 
 public class DateTimeCodec {
 

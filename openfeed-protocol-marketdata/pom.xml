@@ -1,0 +1,99 @@
+<!--
+
+    Copyright (C) 2011-2013 Barchart, Inc. <http://www.barchart.com/>
+
+    All rights reserved. Licensed under the OSI BSD License.
+
+    http://www.opensource.org/licenses/bsd-license.php
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.openfeed.proto</groupId>
+		<artifactId>openfeed-protocol-archon</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath />
+	</parent>
+
+	<artifactId>openfeed-protocol-marketdata</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>bundle</packaging>
+
+	<description>
+<![CDATA[
+
+### OpenFeed market data messages module
+
+OpenFeed is open standard for market data delivery.
+
+]]>
+	</description>
+
+	<scm>
+		<url>https://github.com/openfeed-project/openfeed-protocol</url>
+		<connection>scm:git:git://github.com/openfeed-project/openfeed-protocol.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/openfeed-project/openfeed-protocol.git</developerConnection>
+		<tag>master</tag>
+	</scm>
+
+	<properties>
+
+	</properties>
+
+	<dependencies>
+
+		<!-- Date and time library. -->
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.barchart.util</groupId>
+			<artifactId>barchart-util-bench</artifactId>
+			<version>2.0.4</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.barchart.util</groupId>
+			<artifactId>barchart-util-values</artifactId>
+			<version>2.0.4</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.barchart.feed</groupId>
+			<artifactId>barchart-feed-base</artifactId>
+			<version>1.3.7</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty</artifactId>
+			<version>3.5.7.Final</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openfast</groupId>
+			<artifactId>openfast</artifactId>
+			<version>1.1.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+</project>

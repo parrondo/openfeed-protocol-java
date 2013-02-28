@@ -1,2 +1,3 @@
+### OpenFeed market data messages module
 
-### Market data messages module.
+OpenFeed is open standard for market data delivery.

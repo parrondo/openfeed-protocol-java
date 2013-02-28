@@ -1,2 +1,3 @@
+### OpenFeed shared utilities module
 
-### Protocol utilities.
+OpenFeed is open standard for market data delivery.
