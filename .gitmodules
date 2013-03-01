@@ -5,5 +5,5 @@
 	
 [submodule "openfeed-protocol"]
 	path = openfeed-protocol
-	url = git@github.com/openfeed-project/openfeed-protocol.git
+	url = git@github.com:openfeed-project/openfeed-protocol.git
 
