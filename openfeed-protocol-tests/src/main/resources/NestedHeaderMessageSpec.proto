@@ -1,0 +1,31 @@
+package org.openfeed.proto.test.benchmarks.headermessagetest;
+
+option java_multiple_files = true;
+option java_generate_equals_and_hash = true;
+option optimize_for = SPEED;
+
+import "MarketEntrySpec.proto";
+
+message NestedHeaderMarketPacket {
+	optional PacketHeader header = 1;
+	optional sint64 marketId = 2;
+	optional sint64 sequence = 3;
+	optional sint64 timeStamp = 4;
+	optional sint32 tradeDate = 5;
+	repeated MarketEntry entry = 6;
+	optional sint32 priceExponent = 7;
+	optional sint32 sizeExponent = 8;
+}
+
+message PacketHeader {
+	optional sint32 channel = 1;
+	optional sint64 sequence = 2;
+	optional sint64 timeStamp = 3;
+	optional PacketType type = 4;
+}
+
+enum PacketType {
+	MARKET_UPDATE_PACKET = 0;
+	MARKET_SNAPSHOT_PACKET = 1;
+	INSTRUMENT_PACKET = 2;
+}

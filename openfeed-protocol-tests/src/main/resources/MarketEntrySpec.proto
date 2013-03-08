@@ -1,0 +1,55 @@
+package org.openfeed.proto.test.benchmarks.headermessagetest;
+
+option java_multiple_files = true;
+option java_generate_equals_and_hash = true;
+option optimize_for = SPEED;
+
+
+message MarketEntry {
+
+	enum Action {
+		ADD = 0; // new, create, insert
+		EDIT = 1; // merge, modify, replace, override, overlay
+		REMOVE = 2; // delete, erase, clear, reset
+	}
+
+	enum Type {
+		TRADE = 0; // a.k.a last sale; price & size (size mostly present)
+		BID = 1; // book side
+		ASK = 2; // book side
+		CHANGE = 3; // such as price change from previous day
+		UNDERLYING = 4; // such as option/spread underlying price
+		VOLUME = 5;
+		OPEN = 6;
+		HIGH = 7;
+		LOW = 8;
+		CLOSE = 9; // a.k.a last sale, before close; price; (size mostly absent)
+		SETTLE = 10;
+		INTEREST = 11;
+		CUVOL = 12; // cumulative volume
+		STATUS = 13; // non price/size change; such as OPEN/CLOSE event
+		SEQUENCE = 14; //such as snapshot & update sequence synchronization index
+		UNKNOWN = 127;
+		// keep under 128
+	}
+
+	enum Descriptor {
+		BOOK_IMPLIED = 0;
+		BOOK_RFQ = 1;
+	}
+
+	optional Action action = 1;
+	optional Type type = 2;
+	repeated Descriptor descriptor = 3 [packed = true];
+	optional sint64 marketId = 4;
+	optional sint64 sequence = 5;
+	optional sint64 timeStamp = 6;
+	optional sint32 tradeDate = 7;
+	optional sint64 priceMantissa = 8;
+	optional sint32 priceExponent = 9;
+	optional sint64 sizeMantissa = 10;
+	optional sint32 sizeExponent = 11;
+	optional sint64 index = 12;
+	optional sint64 orderId = 13;
+	optional sint32 orderCount = 14;
+}
