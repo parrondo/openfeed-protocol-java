@@ -7,7 +7,6 @@
  */
 package org.openfeed.proto.data;
 
-import org.openfeed.proto.data.MarketPacket;
 import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.WireFormat;
 
@@ -73,21 +72,21 @@ public final class PacketHeader {
 
 			final int number = WireFormat.getTagFieldNumber(input.readTag());
 
-			if (number == EOF || number >= MarketPacket.TYPE_FIELD_NUMBER) {
+			if (number == EOF || number >= MarketUpdatePacket.TYPE_FIELD_NUMBER) {
 				return header;
 			}
 
-			if (number == MarketPacket.CHANNEL_FIELD_NUMBER) {
+			if (number == MarketUpdatePacket.CHANNEL_FIELD_NUMBER) {
 				header.channel = input.readSInt32();
 				header.hasChannel = true;
 			}
 
-			if (number == MarketPacket.SEQUENCE_FIELD_NUMBER) {
+			if (number == MarketUpdatePacket.SEQUENCE_FIELD_NUMBER) {
 				header.sequence = input.readSInt64();
 				header.hasSequence = true;
 			}
 
-			if (number == MarketPacket.TIMESTAMP_FIELD_NUMBER) {
+			if (number == MarketUpdatePacket.TIMESTAMP_FIELD_NUMBER) {
 				header.timeStamp = input.readSInt64();
 				header.hasTimeStamp = true;
 			}

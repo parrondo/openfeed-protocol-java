@@ -9,12 +9,12 @@ package org.openfeed.proto.assm;
 
 import java.util.List;
 
-import org.openfeed.proto.data.MarketMessage;
+import org.openfeed.proto.data.MarketUpdateMessage;
 import org.openfeed.proto.inst.InstrumentDefinition;
 
 public interface PacketVisitor<T> {
 
-	void apply(List<MarketMessage> messageList, T target);
+	void apply(List<MarketUpdateMessage> messageList, T target);
 
 	void apply(InstrumentDefinition message, T target);
 

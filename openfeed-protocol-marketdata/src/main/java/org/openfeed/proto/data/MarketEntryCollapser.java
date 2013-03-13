@@ -16,7 +16,7 @@ public class MarketEntryCollapser {
 
 	}
 
-	public List<MarketEntry> collapse(final MarketMessage marketMessage) {
+	public List<MarketEntry> collapse(final MarketUpdateMessage marketMessage) {
 		final List<MarketEntry> list = new ArrayList<MarketEntry>(
 				marketMessage.getEntryCount());
 		final MarketEntry defaultValues = makeDefaultValuesForMarketEntries(marketMessage);
@@ -30,7 +30,7 @@ public class MarketEntryCollapser {
 	}
 
 	private MarketEntry makeDefaultValuesForMarketEntries(
-			final MarketMessage marketMessage) {
+			final MarketUpdateMessage marketMessage) {
 
 		final MarketEntry.Builder newBuilder = MarketEntry.newBuilder();
 
