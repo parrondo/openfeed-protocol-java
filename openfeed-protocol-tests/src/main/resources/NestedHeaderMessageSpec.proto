@@ -4,7 +4,7 @@ option java_multiple_files = true;
 option java_generate_equals_and_hash = true;
 option optimize_for = SPEED;
 
-import "MarketEntrySpec.proto";
+import "SharedMarketEntrySpec.proto";
 
 message NestedHeaderMarketPacket {
 	optional PacketHeader header = 1;
