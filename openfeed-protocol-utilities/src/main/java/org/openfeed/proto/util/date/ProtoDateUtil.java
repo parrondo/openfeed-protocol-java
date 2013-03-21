@@ -7,6 +7,7 @@
  */
 package org.openfeed.proto.util.date;
 
+
 public final class ProtoDateUtil {
 
 	public static int YEAR_BITS = 11;

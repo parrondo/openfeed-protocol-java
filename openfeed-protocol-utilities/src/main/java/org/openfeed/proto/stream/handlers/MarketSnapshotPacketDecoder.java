@@ -10,23 +10,19 @@ import org.openfeed.proto.stream.PacketVisitor;
 
 import com.google.protobuf.CodedInputStream;
 
-public class MarketSnapshotPacketDecoder implements PacketDecoder {
+public abstract class MarketSnapshotPacketDecoder implements PacketDecoder {
 
 	private static final PacketType TYPE = PacketType.MARKET_SNAPSHOT;
 
-	private final PacketVisitor<MarketSnapshotPacket> visitor;
-
-	public MarketSnapshotPacketDecoder(PacketVisitor<MarketSnapshotPacket> visitor) {
-		this.visitor = visitor;
-	}
-
 	@Override
-	public void consume(PacketHeader header, CodedInputStream coded) throws IOException {
+	public final void consume(PacketHeader header, CodedInputStream coded) throws IOException {
 		MarketSnapshotPacket.Builder packetBuilder = MarketSnapshotPacket.newBuilder().mergeFrom(coded);
 		mergeHeader(header, packetBuilder);
 		MarketSnapshotPacket packet = packetBuilder.build();
-		visitor.visit(packet);
+		acceptMarketSnapshotPacket(packet);
 	}
+
+	protected abstract void acceptMarketSnapshotPacket(MarketSnapshotPacket packet);
 
 	private void mergeHeader(PacketHeader header, MarketSnapshotPacket.Builder builder) {
 		if (header.hasChannel()) {
@@ -47,6 +43,5 @@ public class MarketSnapshotPacketDecoder implements PacketDecoder {
 	public int getType() {
 		return TYPE.getNumber();
 	}
-
 
 }

@@ -40,6 +40,10 @@ public final class PacketHeader {
 	private int type;
 
 	private boolean hasType;
+	
+	private int subtype;
+	
+	private boolean hasSubtype;
 
 	@Override
 	public String toString() {
@@ -55,6 +59,14 @@ public final class PacketHeader {
 		if (hasTimeStamp) {
 			text.append(" timeStamp=");
 			text.append(timeStamp);
+		}
+		if (hasType) {
+			text.append(" type=");
+			text.append(type);
+		}
+		if (hasSubtype) {
+			text.append(" subtype=");
+			text.append(subtype);
 		}
 		return text.toString();
 	}
@@ -132,5 +144,13 @@ public final class PacketHeader {
 	public boolean hasType() {
 		return hasType;
 	}
-
+	
+	public int getSubtype() {
+		return subtype;
+	}
+	
+	public boolean hasSubtype() {
+		return hasSubtype;
+	}
+	
 }
