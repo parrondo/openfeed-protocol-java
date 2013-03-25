@@ -1,30 +1,34 @@
-package org.openfeed.proto.stream;
+package org.openfeed.proto.parser;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.openfeed.proto.parser.decoder.PacketDecoder;
+
 import com.google.protobuf.CodedInputStream;
 
-public final class StreamDecoder {
+public final class StreamParser {
 
 	private final Map<Integer, PacketDecoder> map;
 
-	private StreamDecoder(Builder builder) {
+	private StreamParser(Builder builder) {
 		this.map = builder.map;
 	}
 
-	public void decode(InputStream is) throws IOException {
+	public void parse(InputStream is) throws IOException {
 		int firstByte;
 		while ((firstByte = is.read()) != -1) {
 			int length = CodedInputStream.readRawVarint32(firstByte, is);
+			int packetType = CodedInputStream.readRawVarint32(is.read(), is);
+			int subType = CodedInputStream.readRawVarint32(is.read(), is);
 			LimitedInputStream limitedInputStream = new LimitedInputStream(is, length);
 			CodedInputStream coded = CodedInputStream.newInstance(limitedInputStream);
-			PacketHeader header = PacketHeader.from(coded);
-			PacketDecoder packetHandler = map.get(header.getTypeEnumValue());
-			if (packetHandler != null) {
-				packetHandler.consume(header, coded);
+
+			PacketDecoder packetDecoder = map.get(packetType);
+			if (packetDecoder != null) {
+				packetDecoder.decode(packetType, subType, coded);
 			}
 		}
 	}
@@ -41,12 +45,13 @@ public final class StreamDecoder {
 			this.map = new HashMap<Integer, PacketDecoder>();
 		}
 
-		public void register(PacketDecoder handler) {
+		public Builder register(PacketDecoder handler) {
 			map.put(handler.getType(), handler);
+			return this;
 		}
 
-		public StreamDecoder build() {
-			return new StreamDecoder(this);
+		public StreamParser build() {
+			return new StreamParser(this);
 		}
 	}
 

@@ -1,4 +1,4 @@
-package org.openfeed.proto.stream;
+package org.openfeed.proto.parser;
 
 import java.io.FilterInputStream;
 import java.io.IOException;
