@@ -1,9 +1,9 @@
 
 [submodule "openfeed-archon"]
-	path = @openfeed-archon
+	path = _openfeed-archon_
 	url = git@github.com:openfeed-project/openfeed-archon.git
 	
 [submodule "openfeed-protocol"]
-	path = @openfeed-protocol
+	path = _openfeed-protocol_
 	url = git@github.com:openfeed-project/openfeed-protocol.git
 

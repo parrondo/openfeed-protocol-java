@@ -184,7 +184,7 @@ OpenFeed is open standard for market data delivery.
 					<plugin>
 						<groupId>com.github.igor-petruk.protobuf</groupId>
 						<artifactId>protobuf-maven-plugin</artifactId>
-						<version>0.6.2</version>
+						<version>0.6.3</version>
 						<executions>
 							<!-- Generate main sources. -->
 							<execution>
@@ -194,10 +194,12 @@ OpenFeed is open standard for market data delivery.
 									<goal>run</goal>
 								</goals>
 								<configuration>
+									<addSources>none</addSources>
 									<ignoreVersions>false</ignoreVersions>
 									<includeDirectories>
-										<entry>${templateRootFolder}/marketdata</entry>
+										<entry>${templateRootFolder}/bundle</entry>
 										<entry>${templateRootFolder}/instrument</entry>
+										<entry>${templateRootFolder}/marketdata</entry>
 										<entry>${basedir}/src/main/resources</entry>
 									</includeDirectories>
 									<inputDirectories>
@@ -215,6 +217,7 @@ OpenFeed is open standard for market data delivery.
 									<goal>run</goal>
 								</goals>
 								<configuration>
+									<addSources>none</addSources>
 									<ignoreVersions>false</ignoreVersions>
 									<inputDirectories>
 										<entry>${basedir}/src/test/resources</entry>
@@ -263,7 +266,7 @@ OpenFeed is open standard for market data delivery.
 								<id>protocol-test-sources</id>
 								<phase>generate-sources</phase>
 								<goals>
-									<goal>add-source</goal>
+									<goal>add-test-source</goal>
 								</goals>
 								<configuration>
 									<sources>
