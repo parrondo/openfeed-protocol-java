@@ -35,17 +35,18 @@ OpenFeed is open standard for market data delivery.
 
 	<modules>
 
-		<module>openfeed-archon</module>
-		<module>openfeed-protocol</module>
+		<!-- External repositories -->
+		<module>@openfeed-archon</module>
+		<module>@openfeed-protocol</module>
 		
-		<module>openfeed-protocol-archon</module>
-		<module>openfeed-protocol-bundle</module>
-		<module>openfeed-protocol-example</module>
-		<module>openfeed-protocol-instrument</module>
-		<module>openfeed-protocol-marketdata</module>
-		<module>openfeed-protocol-tests</module>
-		<module>openfeed-protocol-tools</module>
-		<module>openfeed-protocol-utilities</module>
+		<module>archon</module>
+		<module>bundle</module>
+		<module>example</module>
+		<module>instrument</module>
+		<module>marketdata</module>
+		<module>tests</module>
+		<module>tools</module>
+		<module>utilities</module>
 
 	</modules>
 
