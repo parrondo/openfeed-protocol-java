@@ -72,7 +72,8 @@ public final class PacketHeader {
 
 			final int number = WireFormat.getTagFieldNumber(input.readTag());
 
-			if (number == EOF || number >= MarketUpdatePacket.TYPE_FIELD_NUMBER) {
+			if (number == EOF
+					|| number >= MarketUpdatePacket.PACKETTYPE_FIELD_NUMBER) {
 				return header;
 			}
 

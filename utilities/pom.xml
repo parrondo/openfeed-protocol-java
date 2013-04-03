@@ -34,11 +34,13 @@ OpenFeed is open standard for market data delivery.
 	</scm>
 
 	<dependencies>
+
 		<dependency>
 			<groupId>org.openfeed.proto</groupId>
 			<artifactId>openfeed-protocol-bundle</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
+
 	</dependencies>
 
 </project>

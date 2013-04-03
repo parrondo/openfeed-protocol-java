@@ -1,6 +1,6 @@
 package org.openfeed.proto.parser;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -21,35 +21,41 @@ public class StreamParserTest {
 
 	@Before
 	public void setup() {
-		
+
 	}
-	
+
+	// TODO reviw the change
 	@Test
 	public void testMarketdataHasDefaultPacketType() {
-		MarketUpdatePacket packet = MarketUpdatePacket.newBuilder().build();
-		assertEquals(PacketType.MARKET_UPDATE, packet.getType());
+		final MarketUpdatePacket packet = MarketUpdatePacket.newBuilder()
+				.build();
+		// assertEquals(PacketType.MARKET_UPDATE, packet.getType());
+		assertEquals(PacketType.MARKET_UPDATE, packet.getPacketType());
 	}
-	
+
 	@Test
 	public void testMarketUpdatePacketDecoder() throws IOException {
-		MarketUpdatePacket packet = MarketUpdatePacket.newBuilder().setChannel(1).setTimeStamp(123456789L).build();
-		InputStream inputStream = streamify(packet);
+		final MarketUpdatePacket packet = MarketUpdatePacket.newBuilder()
+				.setChannel(1).setTimeStamp(123456789L).build();
+		final InputStream inputStream = streamify(packet);
 		final AtomicReference<MarketUpdatePacket> ref = new AtomicReference<MarketUpdatePacket>();
-		PacketDecoder handler = new MarketUpdatePacketDecoder() {
+		final PacketDecoder handler = new MarketUpdatePacketDecoder() {
 			@Override
-			protected void acceptMarketUpdatePacket(MarketUpdatePacket packet) {
+			protected void acceptMarketUpdatePacket(
+					final MarketUpdatePacket packet) {
 				ref.set(packet);
 			}
 		};
-		StreamParser parser = StreamParser.newBuilder().register(handler).build();
+		final StreamParser parser = StreamParser.newBuilder().register(handler)
+				.build();
 		parser.parse(inputStream);
 		assertEquals(packet, ref.get());
 	}
 
-	private InputStream streamify(Message packet) throws IOException {
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	private InputStream streamify(final Message packet) throws IOException {
+		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		packet.writeDelimitedTo(baos);
 		return new ByteArrayInputStream(baos.toByteArray());
 	}
-	
+
 }

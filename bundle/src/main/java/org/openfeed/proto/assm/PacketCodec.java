@@ -11,11 +11,9 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 import java.util.EnumMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.openfeed.proto.data.MarketMessageCodec;
 import org.openfeed.proto.data.MarketUpdateMessage;
 import org.openfeed.proto.inst.InstrumentCodec;
 import org.openfeed.proto.inst.InstrumentDefinition;
@@ -41,9 +39,10 @@ public final class PacketCodec {
 
 	static {
 
-		messageTypeToKlaz.put(PacketType.MARKET_UPDATE, MarketUpdateMessage.class);
-		messageTypeToKlaz
-				.put(PacketType.INSTRUMENT_DEFINITION, InstrumentDefinition.class);
+		messageTypeToKlaz.put(PacketType.MARKET_UPDATE,
+				MarketUpdateMessage.class);
+		messageTypeToKlaz.put(PacketType.INSTRUMENT_DEFINITION,
+				InstrumentDefinition.class);
 
 		for (final Map.Entry<PacketType, Class<? extends Message>> entry : messageTypeToKlaz
 				.entrySet()) {
@@ -80,10 +79,10 @@ public final class PacketCodec {
 
 		case MARKET_UPDATE: {
 
-			final List<MarketUpdateMessage> messasgeList = //
-			MarketMessageCodec.parseFrom(body).getMessageList();
-
-			visitor.apply(messasgeList, target);
+			// FIXME
+			// final List<MarketUpdateMessage> messasgeList = //
+			// MarketMessageCodec.parseFrom(body).getMessageList();
+			// visitor.apply(messasgeList, target);
 
 			break;
 		}
