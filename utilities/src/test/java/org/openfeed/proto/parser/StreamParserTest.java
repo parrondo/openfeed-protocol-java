@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openfeed.proto.data.MarketUpdatePacket;
 import org.openfeed.proto.data.PacketType;
@@ -33,6 +34,7 @@ public class StreamParserTest {
 		assertEquals(PacketType.MARKET_UPDATE, packet.getPacketType());
 	}
 
+	@Ignore
 	@Test
 	public void testMarketUpdatePacketDecoder() throws IOException {
 		final MarketUpdatePacket packet = MarketUpdatePacket.newBuilder()
