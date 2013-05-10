@@ -15,13 +15,13 @@
 		<groupId>org.openfeed.proto</groupId>
 		<artifactId>openfeed-protocol-archon</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>../openfeed-protocol-archon</relativePath>
+		<relativePath>../archon</relativePath>
 	</parent>
 
 	<description>
 <![CDATA[
 
-### OpenFeed instrument definition messages module
+### OpenFeed instrument definition messages module.
 
 OpenFeed is open standard for market data delivery.
 

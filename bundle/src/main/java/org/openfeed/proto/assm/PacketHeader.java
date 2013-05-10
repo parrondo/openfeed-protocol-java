@@ -7,6 +7,8 @@
  */
 package org.openfeed.proto.assm;
 
+import org.openfeed.proto.generic.Packet;
+
 import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.WireFormat;
 

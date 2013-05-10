@@ -20,7 +20,7 @@
 	<description>
 <![CDATA[
 
-### OpenFeed parent project for protocol modules
+### OpenFeed parent project for protocol modules.
 
 OpenFeed is open standard for market data delivery.
 
@@ -227,9 +227,7 @@ OpenFeed is open standard for market data delivery.
 									<addSources>none</addSources>
 									<ignoreVersions>false</ignoreVersions>
 									<includeDirectories>
-										<entry>${templateRootFolder}/bundle</entry>
-										<entry>${templateRootFolder}/instrument</entry>
-										<entry>${templateRootFolder}/marketdata</entry>
+										<entry>${templateModuleFolder}</entry>
 										<entry>${basedir}/src/main/resources</entry>
 									</includeDirectories>
 									<inputDirectories>

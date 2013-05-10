@@ -15,6 +15,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.openfeed.proto.data.MarketUpdateMessage;
+import org.openfeed.proto.generic.Packet;
+import org.openfeed.proto.generic.PacketType;
 import org.openfeed.proto.inst.InstrumentCodec;
 import org.openfeed.proto.inst.InstrumentDefinition;
 import org.slf4j.Logger;
@@ -41,8 +43,8 @@ public final class PacketCodec {
 
 		messageTypeToKlaz.put(PacketType.MARKET_UPDATE,
 				MarketUpdateMessage.class);
-		messageTypeToKlaz.put(PacketType.INSTRUMENT_DEFINITION,
-				InstrumentDefinition.class);
+		messageTypeToKlaz
+				.put(PacketType.INSTRUMENT, InstrumentDefinition.class);
 
 		for (final Map.Entry<PacketType, Class<? extends Message>> entry : messageTypeToKlaz
 				.entrySet()) {
@@ -87,7 +89,7 @@ public final class PacketCodec {
 			break;
 		}
 
-		case INSTRUMENT_DEFINITION: {
+		case INSTRUMENT: {
 
 			final InstrumentDefinition message = InstrumentCodec.decode(body);
 

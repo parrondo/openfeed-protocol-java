@@ -9,7 +9,7 @@
 		<groupId>org.openfeed.proto</groupId>
 		<artifactId>openfeed-protocol-archon</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>../openfeed-protocol-archon</relativePath>
+		<relativePath>../archon</relativePath>
 	</parent>
 
 	<artifactId>openfeed-protocol-tests</artifactId>
@@ -19,7 +19,7 @@
 	<description>
 <![CDATA[
 
-### OpenFeed integration tests module
+### OpenFeed integration tests module.
 
 OpenFeed is open standard for market data delivery.
 
@@ -34,16 +34,29 @@ OpenFeed is open standard for market data delivery.
 	</scm>
 
 	<properties>
+
+		<!-- Protocol template module. -->
+		<templateModuleName>test</templateModuleName>
+
 		<!-- Protocol template version. -->
 		<projectTemplateVersion>1.0.0-SNAPSHOT</projectTemplateVersion>
+
 	</properties>
 
 	<dependencies>
+
 		<dependency>
 			<groupId>com.barchart.bench</groupId>
 			<artifactId>barchart-caliper</artifactId>
 			<version>1.0.0-build001-SNAPSHOT</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.openfeed.proto</groupId>
+			<artifactId>openfeed-protocol-bundle</artifactId>
+			<version>[1-SNAPSHOT,2)</version>
+		</dependency>
+
 	</dependencies>
 
 </project>

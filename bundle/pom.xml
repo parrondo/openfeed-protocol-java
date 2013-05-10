@@ -9,7 +9,7 @@
 		<groupId>org.openfeed.proto</groupId>
 		<artifactId>openfeed-protocol-archon</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>../openfeed-protocol-archon</relativePath>
+		<relativePath>../archon</relativePath>
 	</parent>
 
 	<artifactId>openfeed-protocol-bundle</artifactId>
@@ -19,7 +19,7 @@
 	<description>
 <![CDATA[
 
-### OpenFeed assembly of all protocol modules
+### OpenFeed assembly of all protocol modules.
 
 OpenFeed is open standard for market data delivery.
 
@@ -33,28 +33,24 @@ OpenFeed is open standard for market data delivery.
 		<tag>master</tag>
 	</scm>
 
-	<properties>
-
-		<!-- Protocol template module. -->
-		<templateModuleName>bundle</templateModuleName>
-
-		<!-- Protocol template version. -->
-		<projectTemplateVersion>1.0.0-SNAPSHOT</projectTemplateVersion>
-
-	</properties>
-
 	<dependencies>
 
 		<dependency>
 			<groupId>org.openfeed.proto</groupId>
+			<artifactId>openfeed-protocol-generic</artifactId>
+			<version>[1-SNAPSHOT,2)</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openfeed.proto</groupId>
 			<artifactId>openfeed-protocol-instrument</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>[1-SNAPSHOT,2)</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.openfeed.proto</groupId>
 			<artifactId>openfeed-protocol-marketdata</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>[1-SNAPSHOT,2)</version>
 		</dependency>
 
 	</dependencies>
