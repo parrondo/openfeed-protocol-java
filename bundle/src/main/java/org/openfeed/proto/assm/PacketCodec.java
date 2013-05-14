@@ -75,7 +75,7 @@ public final class PacketCodec {
 		final PacketType type = packet.getType();
 
 		/** packet body is just a byte array at this point */
-		final ByteString body = packet.getBody();
+		final ByteString body = null; // packet.getBody();
 
 		switch (type) {
 
