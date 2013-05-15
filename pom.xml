@@ -40,6 +40,7 @@ OpenFeed is open standard for market data delivery.
 		<module>generic</module>
 		<module>instrument</module>
 		<module>marketdata</module>
+		<module>feed-session</module>
 
 		<module>bundle</module>
 		
