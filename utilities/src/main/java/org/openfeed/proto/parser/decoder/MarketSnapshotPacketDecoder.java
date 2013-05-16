@@ -13,7 +13,7 @@ public abstract class MarketSnapshotPacketDecoder implements PacketDecoder {
 
 	@Override
 	public void decode(int packetType, int subType, CodedInputStream coded) throws IOException {
-		acceptMarketSnapshotPacket(MarketSnapshotPacket.newBuilder().mergeFrom(coded).build());
+		acceptMarketSnapshotPacket(MarketSnapshotPacket.PARSER.parseFrom(coded));
 	}
 
 	protected abstract void acceptMarketSnapshotPacket(MarketSnapshotPacket packet);
