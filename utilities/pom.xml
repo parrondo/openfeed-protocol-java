@@ -55,6 +55,13 @@ OpenFeed is open standard for market data delivery.
 			<version>[1-SNAPSHOT,2)</version>
 			<scope>provided</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.openfeed.proto</groupId>
+			<artifactId>openfeed-protocol-feed-session</artifactId>
+			<version>[1-SNAPSHOT,2)</version>
+			<scope>provided</scope>
+		</dependency>		
 
 	</dependencies>
 

@@ -18,8 +18,7 @@ public abstract class MarketUpdatePacketDecoder implements PacketDecoder {
 
 	@Override
 	public final void decode(int packetType, int subType, CodedInputStream coded) throws IOException {
-		MarketUpdatePacket.Builder builder = MarketUpdatePacket.newBuilder().mergeFrom(coded);
-		acceptMarketUpdatePacket(builder.build());
+		acceptMarketUpdatePacket(MarketUpdatePacket.PARSER.parseFrom(coded));
 	}
 
 	protected abstract void acceptMarketUpdatePacket(MarketUpdatePacket packet);
