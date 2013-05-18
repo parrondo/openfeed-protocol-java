@@ -51,6 +51,16 @@ OpenFeed is open standard for market data delivery.
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- OpenFeed protocol buffers templates. -->
+		<dependency>
+			<groupId>org.openfeed.proto</groupId>
+			<artifactId>openfeed-protocol</artifactId>
+			<version>${projectTemplateVersion}</version>
+			<classifier>template</classifier>
+			<type>zip</type>
+			<scope>provided</scope>
+		</dependency>
+
 		<!-- Logging library. -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
