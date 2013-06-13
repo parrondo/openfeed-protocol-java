@@ -46,9 +46,9 @@ OpenFeed is open standard for market data delivery.
 	<dependencies>
 
 		<dependency>
-			<groupId>com.barchart.bench</groupId>
-			<artifactId>barchart-caliper</artifactId>
-			<version>1.0.0-build001-SNAPSHOT</version>
+			<groupId>com.google.caliper</groupId>
+			<artifactId>caliper</artifactId>
+			<version>1.0-beta-1</version>
 		</dependency>
 
 		<dependency>
