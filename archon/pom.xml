@@ -13,7 +13,7 @@
 
 	<groupId>org.openfeed.proto</groupId>
 	<artifactId>openfeed-protocol-archon</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<description>
@@ -30,7 +30,7 @@ OpenFeed is open standard for market data delivery.
 		<url>https://github.com/openfeed-project/openfeed-protocol-java</url>
 		<connection>scm:git:git://github.com/openfeed-project/openfeed-protocol-java.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/openfeed-project/openfeed-protocol-java.git</developerConnection>
-		<tag>openfeed-protocol-archon-1.0.0</tag>
+		<tag>master</tag>
 	</scm>
 
 	<properties>
