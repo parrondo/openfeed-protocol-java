@@ -29,14 +29,14 @@ OpenFeed is open standard for market data delivery.
 	</description>
 
 	<artifactId>openfeed-protocol-instrument</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
 	<scm>
 		<url>https://github.com/openfeed-project/openfeed-protocol-java</url>
 		<connection>scm:git:git://github.com/openfeed-project/openfeed-protocol-java.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/openfeed-project/openfeed-protocol-java.git</developerConnection>
-		<tag>openfeed-protocol-instrument-1.0.1</tag>
+		<tag>master</tag>
 	</scm>
 
 	<properties>
