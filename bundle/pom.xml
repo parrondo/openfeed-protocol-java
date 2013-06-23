@@ -38,19 +38,19 @@ OpenFeed is open standard for market data delivery.
 		<dependency>
 			<groupId>org.openfeed.proto</groupId>
 			<artifactId>openfeed-protocol-generic</artifactId>
-			<version>[1-SNAPSHOT,2)</version>
+			<version>[1-SNAPSHOT,2-SNAPSHOT)</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.openfeed.proto</groupId>
 			<artifactId>openfeed-protocol-instrument</artifactId>
-			<version>[1-SNAPSHOT,2)</version>
+			<version>[1-SNAPSHOT,2-SNAPSHOT)</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.openfeed.proto</groupId>
 			<artifactId>openfeed-protocol-marketdata</artifactId>
-			<version>[1-SNAPSHOT,2)</version>
+			<version>[1-SNAPSHOT,2-SNAPSHOT)</version>
 		</dependency>
 
 	</dependencies>

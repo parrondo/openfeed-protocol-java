@@ -39,7 +39,7 @@ OpenFeed is open standard for market data delivery.
 		<templateModuleName>test</templateModuleName>
 
 		<!-- Protocol template version. -->
-		<projectTemplateVersion>1.0.0-SNAPSHOT</projectTemplateVersion>
+		<!-- <projectTemplateVersion>1.0.0-SNAPSHOT</projectTemplateVersion> -->
 
 	</properties>
 
@@ -54,7 +54,7 @@ OpenFeed is open standard for market data delivery.
 		<dependency>
 			<groupId>org.openfeed.proto</groupId>
 			<artifactId>openfeed-protocol-bundle</artifactId>
-			<version>[1-SNAPSHOT,2)</version>
+			<version>[1-SNAPSHOT,2-SNAPSHOT)</version>
 		</dependency>
 
 	</dependencies>
