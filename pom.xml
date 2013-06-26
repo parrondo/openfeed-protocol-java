@@ -37,7 +37,7 @@ OpenFeed is open standard for market data delivery.
 
 		<module>archon</module>
 		
-		<module>generic</module>
+		<module>common</module>
 		<module>instrument</module>
 		<module>marketdata</module>
 		<module>feed-session</module>
