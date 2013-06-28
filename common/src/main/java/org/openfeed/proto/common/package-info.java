@@ -5,7 +5,7 @@
  *
  * http://www.opensource.org/licenses/bsd-license.php
  */
-package org.openfeed.proto.generic;
+package org.openfeed.proto.common;
 
 /**
  *
