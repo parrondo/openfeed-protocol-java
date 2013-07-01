@@ -177,6 +177,14 @@ public class KerberosUtilities {
 		}
 	}
 
+	/**
+	 * Encrypt UTF-8 string.
+	 */
+	public static byte[] defaultEncrypt(final String plainText,
+			final byte[] secretKey) {
+		return defaultEncrypt(plainText.getBytes(UTF_8), secretKey);
+	}
+
 	public static byte[] defaultSignatureCreate(final byte[] plainText,
 			final byte[] secretKey) {
 		try {

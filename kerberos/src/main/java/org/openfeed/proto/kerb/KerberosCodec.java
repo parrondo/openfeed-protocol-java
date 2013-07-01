@@ -253,4 +253,30 @@ public class KerberosCodec {
 		return observer.magicID();
 	}
 
+	public static ByteString ticketEncrypt(final BaseTicket ticket,
+			final byte[] secretKey) {
+		final byte[] plainText = ticket.toByteArray();
+		final byte[] ciferText = KerberosUtilities.defaultEncrypt(plainText,
+				secretKey);
+		return ByteString.copyFrom(ciferText);
+	}
+
+	public static BaseTicket ticketDecrypt(final ByteString ticket,
+			final byte[] secretKey) {
+		final byte[] ciferText = ticket.toByteArray();
+		final byte[] plainText = KerberosUtilities.defaultDecrypt(ciferText,
+				secretKey);
+		try {
+			return BaseTicket.PARSER.parseFrom(plainText);
+		} catch (final Throwable e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
+	public static ByteString stringEcrypt(final String text,
+			final byte[] secretKey) {
+		return ByteString.copyFrom(KerberosUtilities.defaultEncrypt(text,
+				secretKey));
+	}
+
 }
