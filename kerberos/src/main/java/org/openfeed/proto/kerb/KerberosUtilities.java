@@ -148,7 +148,7 @@ public class KerberosUtilities {
 			return cipher.doFinal(body);
 
 		} catch (final Throwable e) {
-			throw new KerberosException("Decrypt failure.", e);
+			throw new KerberosError("Decrypt failure.", e);
 		}
 	}
 
@@ -175,7 +175,7 @@ public class KerberosUtilities {
 			return arrayCon(init, body);
 
 		} catch (final Throwable e) {
-			throw new KerberosException("Encrypt failure.", e);
+			throw new KerberosError("Encrypt failure.", e);
 		}
 	}
 
@@ -210,7 +210,7 @@ public class KerberosUtilities {
 			return factory.generateSecret(spec).getEncoded();
 
 		} catch (final Throwable e) {
-			throw new KerberosException("Secret key failure.", e);
+			throw new KerberosError("Secret key failure.", e);
 		}
 	}
 
@@ -227,7 +227,7 @@ public class KerberosUtilities {
 			return signature.doFinal(plainText);
 
 		} catch (final Throwable e) {
-			throw new KerberosException("Signature failure.", e);
+			throw new KerberosError("Signature failure.", e);
 		}
 	}
 

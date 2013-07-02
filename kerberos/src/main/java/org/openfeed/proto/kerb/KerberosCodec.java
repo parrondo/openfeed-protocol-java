@@ -163,7 +163,7 @@ public class KerberosCodec {
 		try {
 			return KerberosMessage.PARSER.parseFrom(byteString, registry);
 		} catch (final Throwable e) {
-			throw new KerberosException("Decode failure.", e);
+			throw new KerberosError("Decode failure.", e);
 		}
 	}
 
