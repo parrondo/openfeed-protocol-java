@@ -3,9 +3,9 @@ package org.openfeed.proto.kerb;
 /**
  * Kerberos message reactor.
  */
-public interface KerberosObserver {
+public interface KerberosObserver<T> {
 
-	class Adapter implements KerberosObserver {
+	class Adapter<T> implements KerberosObserver<T> {
 
 		@Override
 		public void on(final KerberosMessage kerberos,
@@ -40,11 +40,17 @@ public interface KerberosObserver {
 		@Override
 		public void on(final KerberosMessage kerberos,
 				final ServerServiceResponse extension) {
-			// TODO Auto-generated method stub
+			throw new UnsupportedOperationException();
+		}
 
+		@Override
+		public T result() {
+			throw new UnsupportedOperationException();
 		}
 
 	}
+
+	//
 
 	void on(KerberosMessage kerberos, ClientAccreditRequest extension);
 
@@ -59,5 +65,12 @@ public interface KerberosObserver {
 	void on(KerberosMessage kerberos, DomainAuthorizeResponse extension);
 
 	void on(KerberosMessage kerberos, ServerServiceResponse extension);
+
+	//
+
+	/**
+	 * Return result of individual invocation.
+	 */
+	T result();
 
 }

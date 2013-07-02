@@ -59,6 +59,8 @@ public class KerberosUtilities {
 
 	static final Logger log = LoggerFactory.getLogger(KerberosUtilities.class);
 
+	private static final SecureRandom SECURE_RANDOM = new SecureRandom();
+
 	/**
 	 * Use HMAC-256 signature
 	 */
@@ -178,11 +180,38 @@ public class KerberosUtilities {
 	}
 
 	/**
-	 * Encrypt UTF-8 string.
+	 * Generate random UUID.
 	 */
-	public static byte[] defaultEncrypt(final String plainText,
-			final byte[] secretKey) {
-		return defaultEncrypt(plainText.getBytes(UTF_8), secretKey);
+	public static byte[] defaultRandomUUID() {
+		final byte[] array = new byte[16];
+		SECURE_RANDOM.nextBytes(array);
+		return array;
+	}
+
+	/**
+	 * Advanced Encryption Standard (AES) Encryption for Kerberos 5
+	 * 
+	 * @see http://www.ietf.org/rfc/rfc3962.txt
+	 * 
+	 * @param uri
+	 *            - salt to AES
+	 * @param secret
+	 *            - client/user password
+	 */
+	public static byte[] defaultSecretKey(final String uri, final String secret) {
+		try {
+
+			final SecretKeyFactory factory = SecretKeyFactory
+					.getInstance(KEY_FACTORY);
+
+			final KeySpec spec = new PBEKeySpec(secret.toCharArray(),
+					byteArray(uri), KEY_LOOP, KEY_SIZE);
+
+			return factory.generateSecret(spec).getEncoded();
+
+		} catch (final Throwable e) {
+			throw new KerberosException("Secret key failure.", e);
+		}
 	}
 
 	public static byte[] defaultSignatureCreate(final byte[] plainText,
@@ -212,55 +241,43 @@ public class KerberosUtilities {
 	}
 
 	/**
+	 * Decrypt UTF-8 string.
+	 */
+	public static String defaultStringDecrypt(final byte[] ciferText,
+			final byte[] secretKey) {
+		return new String(defaultDecrypt(ciferText, secretKey), UTF_8);
+	}
+
+	/**
+	 * Encrypt UTF-8 string.
+	 */
+	public static byte[] defaultStringEncrypt(final String plainText,
+			final byte[] secretKey) {
+		return defaultEncrypt(plainText.getBytes(UTF_8), secretKey);
+	}
+
+	/**
 	 * Verify if text has valid format URI.
 	 */
-	public static boolean isValidURI(final String uri) {
+	public static boolean isValidURI(final String textURI) {
 		try {
-			new URI(uri);
+			final URI uri = new URI(textURI);
+			if (uri.getScheme() == null) {
+				throw new IllegalArgumentException("Missing scheme.");
+			}
+			if (uri.getAuthority() == null) {
+				throw new IllegalArgumentException("Missing authority.");
+			}
+			if (uri.getPath() == null) {
+				throw new IllegalArgumentException("Missing uri path.");
+			}
 			return true;
 		} catch (final Throwable e) {
 			return false;
 		}
 	}
 
-	/**
-	 * Advanced Encryption Standard (AES) Encryption for Kerberos 5
-	 * 
-	 * @see http://www.ietf.org/rfc/rfc3962.txt
-	 * 
-	 * @param uri
-	 *            - salt to AES
-	 * @param secret
-	 *            - client/user password
-	 */
-	public static byte[] secretKey(final String uri, final String secret) {
-		try {
-
-			final SecretKeyFactory factory = SecretKeyFactory
-					.getInstance(KEY_FACTORY);
-
-			final KeySpec spec = new PBEKeySpec(secret.toCharArray(),
-					byteArray(uri), KEY_LOOP, KEY_SIZE);
-
-			return factory.generateSecret(spec).getEncoded();
-
-		} catch (final Throwable e) {
-			throw new KerberosException("Secret key failure.", e);
-		}
-	}
-
 	private KerberosUtilities() {
-	}
-
-	private static final SecureRandom SECURE_RANDOM = new SecureRandom();
-
-	/**
-	 * Generate random UUID.
-	 */
-	public static byte[] randomUUID() {
-		final byte[] array = new byte[16];
-		SECURE_RANDOM.nextBytes(array);
-		return array;
 	}
 
 }

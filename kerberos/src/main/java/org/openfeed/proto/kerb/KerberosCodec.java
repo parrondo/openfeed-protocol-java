@@ -63,25 +63,35 @@ public class KerberosCodec {
 
 	}
 
-	public static BaseTicket decode(final byte[] ticketCifer,
-			final byte[] secretKey) throws Exception {
-
-		final byte[] ticketPlain = KerberosUtilities.defaultDecrypt(
-				ticketCifer, secretKey);
-
-		return BaseTicket.PARSER.parseFrom(ticketPlain);
-
-	}
-
 	/**
 	 * Extract extension message and verify signature.
 	 */
 	public static <T extends GeneratedMessage> T decode(
 			final KerberosMessage kerberos, final byte[] secretKey,
-			final Class<T> klaz) {
+			final Class<T> extensionType) {
+
+		final T message = decode(kerberos, extensionType);
+
+		final boolean isValid = KerberosUtilities.defaultSignatureVerify(
+				message.toByteArray(), secretKey, kerberos.getSignature()
+						.toByteArray());
+
+		if (isValid) {
+			return message;
+		}
+
+		throw new IllegalStateException("Signature mismatch.");
+
+	}
+
+	/**
+	 * Extract extension message.
+	 */
+	static <T extends GeneratedMessage> T decode(
+			final KerberosMessage kerberos, final Class<T> extensionType) {
 
 		@SuppressWarnings("unchecked")
-		final Meta<T> meta = (Meta<T>) klazMap.get(klaz);
+		final Meta<T> meta = (Meta<T>) klazMap.get(extensionType);
 
 		if (meta == null) {
 			throw new IllegalStateException("Missing metadata.");
@@ -92,20 +102,12 @@ public class KerberosCodec {
 
 		final T message = kerberos.getExtension(meta.extention);
 
-		final boolean isValid = KerberosUtilities.defaultSignatureVerify(
-				message.toByteArray(), secretKey, kerberos.getSignature()
-						.toByteArray());
-
-		if (!isValid) {
-			throw new IllegalStateException("Signature mismatch.");
-		}
-
 		return message;
 
 	}
 
-	public static void decode(final KerberosMessage kerberos,
-			final KerberosObserver observer) {
+	public static <T> T decode(final KerberosMessage kerberos,
+			final KerberosObserver<T> observer) {
 
 		switch (kerberos.getType()) {
 
@@ -113,39 +115,39 @@ public class KerberosCodec {
 			final ClientAccreditRequest extension = kerberos
 					.getExtension(ClientAccreditRequest.extension);
 			observer.on(kerberos, extension);
-			return;
+			return observer.result();
 		}
 		case DOMAIN_ACCREDIT_RESPONSE: {
 			final DomainAccreditResponse extension = kerberos
 					.getExtension(DomainAccreditResponse.extension);
 			observer.on(kerberos, extension);
-			return;
+			return observer.result();
 		}
 
 		case CLIENT_AUTHORIZE_REQUEST: {
 			final ClientAuthorizeRequest extension = kerberos
 					.getExtension(ClientAuthorizeRequest.extension);
 			observer.on(kerberos, extension);
-			return;
+			return observer.result();
 		}
 		case DOMAIN_AUTHORIZE_RESPONSE: {
 			final DomainAuthorizeResponse extension = kerberos
 					.getExtension(DomainAuthorizeResponse.extension);
 			observer.on(kerberos, extension);
-			return;
+			return observer.result();
 		}
 
 		case CLIENT_SERVICE_REQUEST: {
 			final ClientServiceRequest extension = kerberos
 					.getExtension(ClientServiceRequest.extension);
 			observer.on(kerberos, extension);
-			return;
+			return observer.result();
 		}
 		case SERVER_SERVICE_RESPONSE: {
 			final ServerServiceResponse extension = kerberos
 					.getExtension(ServerServiceResponse.extension);
 			observer.on(kerberos, extension);
-			return;
+			return observer.result();
 		}
 
 		default: {
@@ -191,6 +193,14 @@ public class KerberosCodec {
 
 	}
 
+	public static ByteString magicID(final KerberosMessage kerberos) {
+		return decode(kerberos, KerberosMagicID.make());
+	}
+
+	public static ByteString randomGUID() {
+		return ByteString.copyFrom(KerberosUtilities.defaultRandomUUID());
+	}
+
 	public static <T extends GeneratedMessage> void register(final Class<T> klaz) {
 		try {
 
@@ -215,23 +225,76 @@ public class KerberosCodec {
 		}
 	}
 
-	public static ByteString signatureCreate(final GeneratedMessage message,
+	public static void signatureAssert(final KerberosMessage kerberos,
 			final byte[] secretKey) {
-		return ByteString.copyFrom(KerberosUtilities.defaultSignatureCreate(
-				message.toByteArray(), secretKey));
-	}
-
-	public static void signatureVerify(final KerberosMessage kerberos,
-			final GeneratedMessage message, final byte[] verifyKey) {
-
-		final boolean isValid = KerberosUtilities.defaultSignatureVerify(
-				message.toByteArray(), verifyKey, kerberos.getSignature()
-						.toByteArray());
-
-		if (!isValid) {
+		if (!signatureVerify(kerberos, secretKey)) {
 			throw new IllegalStateException("Signature mismatch.");
 		}
+	}
 
+	public static ByteString signatureCreate(final GeneratedMessage extension,
+			final byte[] secretKey) {
+		return ByteString.copyFrom(KerberosUtilities.defaultSignatureCreate(
+				extension.toByteArray(), secretKey));
+	}
+
+	public static boolean signatureVerify(final KerberosMessage kerberos,
+			final byte[] secretKey) {
+
+		final GeneratedMessage extension = decode(kerberos,
+				KerberosExtension.make());
+
+		return signatureVerify(kerberos, extension, secretKey);
+
+	}
+
+	public static boolean signatureVerify(final KerberosMessage kerberos,
+			final GeneratedMessage extension, final byte[] secretKey) {
+		return KerberosUtilities.defaultSignatureVerify(
+				extension.toByteArray(), secretKey, kerberos.getSignature()
+						.toByteArray());
+	}
+
+	public static String stringDecrypt(final ByteString stringCifer,
+			final byte[] secretKey) {
+		return KerberosUtilities.defaultStringDecrypt(
+				stringCifer.toByteArray(), secretKey);
+	}
+
+	public static ByteString stringEcrypt(final String text,
+			final byte[] secretKey) {
+		return ByteString.copyFrom(KerberosUtilities.defaultStringEncrypt(text,
+				secretKey));
+	}
+
+	public static String stringEncrypt(final ByteString text,
+			final byte[] secretKey) {
+		return KerberosUtilities.defaultStringDecrypt(text.toByteArray(),
+				secretKey);
+	}
+
+	public static BaseTicket ticketDecrypt(final byte[] ticketCifer,
+			final byte[] secretKey) {
+		final byte[] plainText = KerberosUtilities.defaultDecrypt(ticketCifer,
+				secretKey);
+		try {
+			return BaseTicket.PARSER.parseFrom(plainText);
+		} catch (final Throwable e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
+	public static BaseTicket ticketDecrypt(final ByteString ticketCifer,
+			final byte[] secretKey) {
+		return ticketDecrypt(ticketCifer.toByteArray(), secretKey);
+	}
+
+	public static ByteString ticketEncrypt(final BaseTicket ticket,
+			final byte[] secretKey) {
+		final byte[] plainText = ticket.toByteArray();
+		final byte[] ciferText = KerberosUtilities.defaultEncrypt(plainText,
+				secretKey);
+		return ByteString.copyFrom(ciferText);
 	}
 
 	private static KerberosMessage.Type typeFrom(final int number) {
@@ -243,40 +306,8 @@ public class KerberosCodec {
 		return KerberosMessage.Type.UNKNOWN;
 	}
 
-	public static ByteString randomGUID() {
-		return ByteString.copyFrom(KerberosUtilities.randomUUID());
-	}
+	private KerberosCodec() {
 
-	public static ByteString magicID(final KerberosMessage kerberos) {
-		final KerberosMagicID observer = new KerberosMagicID();
-		decode(kerberos, observer);
-		return observer.magicID();
-	}
-
-	public static ByteString ticketEncrypt(final BaseTicket ticket,
-			final byte[] secretKey) {
-		final byte[] plainText = ticket.toByteArray();
-		final byte[] ciferText = KerberosUtilities.defaultEncrypt(plainText,
-				secretKey);
-		return ByteString.copyFrom(ciferText);
-	}
-
-	public static BaseTicket ticketDecrypt(final ByteString ticket,
-			final byte[] secretKey) {
-		final byte[] ciferText = ticket.toByteArray();
-		final byte[] plainText = KerberosUtilities.defaultDecrypt(ciferText,
-				secretKey);
-		try {
-			return BaseTicket.PARSER.parseFrom(plainText);
-		} catch (final Throwable e) {
-			throw new IllegalStateException(e);
-		}
-	}
-
-	public static ByteString stringEcrypt(final String text,
-			final byte[] secretKey) {
-		return ByteString.copyFrom(KerberosUtilities.defaultEncrypt(text,
-				secretKey));
 	}
 
 }

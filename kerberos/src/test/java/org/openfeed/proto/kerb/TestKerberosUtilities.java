@@ -37,7 +37,7 @@ public class TestKerberosUtilities {
 
 		for (int k = 0; k < 3; k++) {
 
-			final byte[] secretKey = KerberosUtilities.secretKey("account",
+			final byte[] secretKey = KerberosUtilities.defaultSecretKey("account",
 					"secret");
 			System.err.println("secretKey = " + secretKey.length + " / "
 					+ new String(secretKey));

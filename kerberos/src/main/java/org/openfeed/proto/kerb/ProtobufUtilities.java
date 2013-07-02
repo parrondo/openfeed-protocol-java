@@ -13,7 +13,7 @@ import com.google.protobuf.GeneratedMessage;
 import com.google.protobuf.GeneratedMessage.GeneratedExtension;
 import com.google.protobuf.ProtocolMessageEnum;
 
-public class ProtobufUtil {
+public class ProtobufUtilities {
 
 	/**
 	 * Extract registered extensions.
