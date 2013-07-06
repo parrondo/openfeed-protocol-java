@@ -310,4 +310,8 @@ public class KerberosCodec {
 
 	}
 
+	public static ExtensionRegistry registry() {
+		return registry;
+	}
+
 }
