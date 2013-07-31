@@ -12,7 +12,7 @@
 	</parent>
 
 	<artifactId>openfeed-protocol-marketdata</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.0.1</version>
 	<packaging>bundle</packaging>
 
 	<description>
@@ -29,7 +29,7 @@ OpenFeed is open standard for market data delivery.
 		<url>https://github.com/openfeed-project/openfeed-protocol-java</url>
 		<connection>scm:git:git://github.com/openfeed-project/openfeed-protocol-java.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/openfeed-project/openfeed-protocol-java.git</developerConnection>
-		<tag>master</tag>
+		<tag>openfeed-protocol-marketdata-1.0.1</tag>
 	</scm>
 
 	<properties>
