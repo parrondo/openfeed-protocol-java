@@ -12,6 +12,9 @@ import java.util.List;
 import org.openfeed.proto.data.MarketUpdateMessage;
 import org.openfeed.proto.inst.InstrumentDefinition;
 
+/**
+ * 
+ */
 public interface PacketVisitor<T> {
 
 	void apply(List<MarketUpdateMessage> messageList, T target);

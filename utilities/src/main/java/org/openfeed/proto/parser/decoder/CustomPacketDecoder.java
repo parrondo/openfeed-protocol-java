@@ -1,6 +1,6 @@
 package org.openfeed.proto.parser.decoder;
 
-import org.openfeed.proto.generic.PacketType;
+import org.openfeed.proto.common.PacketType;
 
 public abstract class CustomPacketDecoder implements PacketDecoder {
 

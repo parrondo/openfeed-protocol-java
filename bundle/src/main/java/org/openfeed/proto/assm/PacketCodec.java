@@ -14,9 +14,9 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.openfeed.proto.common.Packet;
+import org.openfeed.proto.common.PacketType;
 import org.openfeed.proto.data.MarketUpdateMessage;
-import org.openfeed.proto.generic.Packet;
-import org.openfeed.proto.generic.PacketType;
 import org.openfeed.proto.inst.InstrumentCodec;
 import org.openfeed.proto.inst.InstrumentDefinition;
 import org.slf4j.Logger;

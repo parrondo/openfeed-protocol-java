@@ -35,11 +35,9 @@ OpenFeed is open standard for market data delivery.
 
 	<properties>
 
-		<!-- Protocol template module. -->
 		<templateModuleName>test</templateModuleName>
 
-		<!-- Protocol template version. -->
-		<!-- <projectTemplateVersion>1.0.0-SNAPSHOT</projectTemplateVersion> -->
+		<projectTemplateVersion>1.0.1</projectTemplateVersion>
 
 	</properties>
 

@@ -37,7 +37,17 @@ OpenFeed is open standard for market data delivery.
 	<properties>
 
 		<!-- Protocol templates version. -->
-		<projectTemplateVersion>1.0.0-SNAPSHOT</projectTemplateVersion>
+		<projectTemplateVersion>1.0.1</projectTemplateVersion>
+
+		<!-- Semantic version import policy for consumer. Bind to MAJOR. -->
+		<bundleConsumerPolicy>$&lt;range;[==,+)&gt;</bundleConsumerPolicy>
+
+		<!-- Semantic version import policy for provider. Bind to MAJOR.MINOR. -->
+		<bundleProviderPolicy>$&lt;range;[==,=+)&gt;</bundleProviderPolicy>
+
+		<!-- Semantic version check. Use latest release by default. -->
+		<bundleBaselineVersion>RELEASE</bundleBaselineVersion>
+		<bundleBaselineExtension>jar</bundleBaselineExtension>
 
 	</properties>
 
@@ -150,6 +160,23 @@ OpenFeed is open standard for market data delivery.
 					<execution>
 						<goals>
 							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Semantic version check. -->
+			<plugin>
+				<groupId>org.apache.aries.versioning</groupId>
+				<artifactId>org.apache.aries.versioning.plugin</artifactId>
+				<version>0.1.0-build001</version>
+				<configuration>
+					<oldArtifact>${project.groupId}:${project.artifactId}:${bundleBaselineExtension}:${bundleBaselineVersion}</oldArtifact>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>version-check</goal>
 						</goals>
 					</execution>
 				</executions>
