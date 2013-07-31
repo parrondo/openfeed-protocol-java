@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>org.openfeed.proto</groupId>
 		<artifactId>openfeed-protocol-archon</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+		<version>1.0.1</version>
 		<relativePath>../archon</relativePath>
 	</parent>
 
