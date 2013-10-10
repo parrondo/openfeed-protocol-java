@@ -1,71 +1,309 @@
-<!--
-
-    Copyright (C) 2011-2013 Barchart, Inc. <http://www.barchart.com/>
-
-    All rights reserved. Licensed under the OSI BSD License.
-
-    http://www.opensource.org/licenses/bsd-license.php
-
--->
+<!-- Copyright (C) 2011-2013 Barchart, Inc. <http://www.barchart.com/> All 
+	rights reserved. Licensed under the OSI BSD License. http://www.opensource.org/licenses/bsd-license.php -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>org.openfeed.base</groupId>
-		<artifactId>openfeed-archon</artifactId>
-		<version>1.0.0</version>
-		<relativePath />
-	</parent>
-
-	<groupId>org.openfeed.proto</groupId>
-	<artifactId>openfeed-protocol-java</artifactId>
-	<version>0.0.0</version>
-	<packaging>pom</packaging>
+	<groupId>org.openfeed</groupId>
+	<artifactId>openfeed</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
 	<description>
 <![CDATA[
-### Layout project for Java.
-
-OpenFeed is open standard for market data delivery.
 
 ]]>
 	</description>
 
-	<modules>
+	<scm>
+		<url>https://github.com/openfeed-project/openfeed-protocol-java</url>
+		<connection>scm:git:git://github.com/openfeed-project/openfeed-protocol-java.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/openfeed-project/openfeed-protocol-java.git</developerConnection>
+		<tag>master</tag>
+	</scm>
 
-		<module>archon</module>
-		
-		<module>common</module>
-		<module>instrument</module>
-		<module>marketdata</module>
-		<module>feed-session</module>
-		<module>kerberos</module>
 
-		<module>bundle</module>
-		
-		<module>tests</module>
-		<module>tools</module>
-		<module>utilities</module>
+	<properties>
+		<barchartNexusURL>https://nexus.barchart.com</barchartNexusURL>
+		<barchartReleaseURL>${barchartNexusURL}/content/repositories/releases</barchartReleaseURL>
+		<barchartSnapshotsURL>${barchartNexusURL}/content/repositories/snapshots</barchartSnapshotsURL>
 
-		<module>example</module>
+		<templateMainJavaFolder>${basedir}/target/java/main</templateMainJavaFolder>
+		<templateTestJavaFolder>${basedir}/target/java/test</templateTestJavaFolder>
 
-	</modules>
+		<projectTemplateVersion>1.0.8-SNAPSHOT</projectTemplateVersion>
+		<templateRootFolder>${basedir}/target/template</templateRootFolder>
+		<templateModuleName>openfeed</templateModuleName>
+		<templateModuleFolder>${templateRootFolder}/${templateModuleName}</templateModuleFolder>
+
+	</properties>
+
+
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.google.protobuf</groupId>
+			<artifactId>protobuf-java</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.4</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.0.10</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
 
 	<build>
 
-		<!-- Layout project is not for deployment. -->
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<!-- Unpack templates from maven only. -->
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-dependency-plugin</artifactId>
+										<versionRange>[0,)</versionRange>
+										<goals>
+											<goal>unpack</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+
+
+								<!-- Process templates from maven only. -->
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>com.github.igor-petruk.protobuf</groupId>
+										<artifactId>protobuf-maven-plugin</artifactId>
+										<versionRange>[0,)</versionRange>
+										<goals>
+											<goal>run</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+
+
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-deploy-plugin</artifactId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
 				<configuration>
-					<skip>true</skip>
+					<source>1.6</source>
+					<target>1.6</target>
 				</configuration>
 			</plugin>
-		</plugins>
 
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+
+
+			<!-- Extract all protocol templates. -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.openfeed.proto</groupId>
+									<artifactId>openfeed-protocol</artifactId>
+									<version>${projectTemplateVersion}</version>
+									<classifier>template</classifier>
+									<type>zip</type>
+								</artifactItem>
+							</artifactItems>
+							<overWriteIfNewer>true</overWriteIfNewer>
+							<overWriteReleases>true</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
+							<outputDirectory>${templateRootFolder}</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Generate java source from *.proto files. -->
+			<plugin>
+				<groupId>com.github.igor-petruk.protobuf</groupId>
+				<artifactId>protobuf-maven-plugin</artifactId>
+				<version>0.6.3</version>
+				<executions>
+					<!-- Generate main sources. -->
+					<execution>
+						<id>protocol-main-sources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<addSources>none</addSources>
+							<ignoreVersions>false</ignoreVersions>
+							<includeDirectories>
+								<entry>${templateModuleFolder}</entry>
+								<entry>${basedir}/src/main/resources</entry>
+							</includeDirectories>
+							<inputDirectories>
+								<entry>${templateModuleFolder}</entry>
+								<entry>${basedir}/src/main/resources</entry>
+							</inputDirectories>
+							<outputDirectory>${templateMainJavaFolder}</outputDirectory>
+						</configuration>
+					</execution>
+					<!-- Generate test sources. -->
+					<execution>
+						<id>protocol-test-sources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<addSources>none</addSources>
+							<ignoreVersions>false</ignoreVersions>
+							<inputDirectories>
+								<entry>${basedir}/src/test/resources</entry>
+							</inputDirectories>
+							<outputDirectory>${templateTestJavaFolder}</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Make generated resources available for the build. -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<!-- Add protocol template folders. -->
+					<execution>
+						<id>protocol-template</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-resource</goal>
+						</goals>
+						<configuration>
+							<resources>
+								<resource>
+									<directory>${templateModuleFolder}</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<!-- Add generated main java folders. -->
+					<execution>
+						<id>protocol-main-sources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${templateMainJavaFolder}</source>
+							</sources>
+						</configuration>
+					</execution>
+					<!-- Add generated test java folders. -->
+					<execution>
+						<id>protocol-test-sources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-test-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${templateTestJavaFolder}</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+
+		</plugins>
 	</build>
+
+	<profiles>
+		<!-- Private Barchart Nexus distribution; must activate. -->
+		<profile>
+			<id>barchart-nexus-distribution</id>
+			<activation>
+				<file>
+					<exists>maven-barchart.md</exists>
+				</file>
+			</activation>
+			<distributionManagement>
+				<snapshotRepository>
+					<id>barchart-nexus-snapshots</id>
+					<name>Barchart Nexus Snapshots</name>
+					<url>${barchartSnapshotsURL}</url>
+				</snapshotRepository>
+				<repository>
+					<id>barchart-nexus-releases</id>
+					<name>Barchart Nexus Releases</name>
+					<url>${barchartReleaseURL}</url>
+				</repository>
+			</distributionManagement>
+		</profile>
+	</profiles>
 
 </project>

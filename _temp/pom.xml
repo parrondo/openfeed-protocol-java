@@ -1,0 +1,71 @@
+<!--
+
+    Copyright (C) 2011-2013 Barchart, Inc. <http://www.barchart.com/>
+
+    All rights reserved. Licensed under the OSI BSD License.
+
+    http://www.opensource.org/licenses/bsd-license.php
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.openfeed.base</groupId>
+		<artifactId>openfeed-archon</artifactId>
+		<version>1.0.0</version>
+		<relativePath />
+	</parent>
+
+	<groupId>org.openfeed.proto</groupId>
+	<artifactId>openfeed-protocol-java</artifactId>
+	<version>0.0.0</version>
+	<packaging>pom</packaging>
+
+	<description>
+<![CDATA[
+### Layout project for Java.
+
+OpenFeed is open standard for market data delivery.
+
+]]>
+	</description>
+
+	<modules>
+
+		<module>archon</module>
+		
+		<module>common</module>
+		<module>instrument</module>
+		<module>marketdata</module>
+		<module>feed-session</module>
+		<module>kerberos</module>
+
+		<module>bundle</module>
+		
+		<module>tests</module>
+		<module>tools</module>
+		<module>utilities</module>
+
+		<module>example</module>
+
+	</modules>
+
+	<build>
+
+		<!-- Layout project is not for deployment. -->
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+		</plugins>
+
+	</build>
+
+</project>
