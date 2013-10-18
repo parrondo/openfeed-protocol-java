@@ -1,6 +1,7 @@
 <!-- Copyright (C) 2011-2013 Barchart, Inc. <http://www.barchart.com /> All 
 	rights reserved. Licensed under the OSI BSD License. http://www.opensource.org/licenses/bsd-license.php -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
@@ -95,6 +96,7 @@ OpenFeed is open standard for market data delivery.
 		<pluginManagement>
 
 			<plugins>
+
 				<!--This plugin's configuration is used to store Eclipse m2e settings 
 					only. It has no influence on the Maven build itself. -->
 				<plugin>
@@ -104,6 +106,7 @@ OpenFeed is open standard for market data delivery.
 					<configuration>
 						<lifecycleMappingMetadata>
 							<pluginExecutions>
+
 								<!-- Unpack templates from maven only. -->
 								<pluginExecution>
 									<pluginExecutionFilter>
@@ -135,32 +138,28 @@ OpenFeed is open standard for market data delivery.
 									</action>
 								</pluginExecution>
 
+								<!-- Must use m2e build-helper-maven-plugin. -->
+								<!-- <pluginExecution> -->
+								<!-- <pluginExecutionFilter> -->
+								<!-- <groupId>org.codehaus.mojo</groupId> -->
+								<!-- <artifactId>build-helper-maven-plugin</artifactId> -->
+								<!-- <versionRange>[0,)</versionRange> -->
+								<!-- <goals> -->
+								<!-- <goal>add-resource</goal> -->
+								<!-- <goal>add-source</goal> -->
+								<!-- <goal>add-test-source</goal> -->
+								<!-- </goals> -->
+								<!-- </pluginExecutionFilter> -->
+								<!-- <action> -->
+								<!-- <ignore /> -->
+								<!-- </action> -->
+								<!-- </pluginExecution> -->
 
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											org.codehaus.mojo
-										</groupId>
-										<artifactId>
-											build-helper-maven-plugin
-										</artifactId>
-										<versionRange>
-											[0,)
-										</versionRange>
-										<goals>
-											<goal>add-resource</goal>
-											<goal>add-source</goal>
-											<goal>add-test-source</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore />
-									</action>
-								</pluginExecution>
 							</pluginExecutions>
 						</lifecycleMappingMetadata>
 					</configuration>
 				</plugin>
+
 			</plugins>
 
 		</pluginManagement>
@@ -197,6 +196,7 @@ OpenFeed is open standard for market data delivery.
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.8</version>
 				<executions>
 					<execution>
 						<id>unpack</id>
@@ -273,7 +273,7 @@ OpenFeed is open standard for market data delivery.
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>1.7</version>
+				<version>1.8</version>
 				<executions>
 					<!-- Add protocol template folders. -->
 					<execution>
