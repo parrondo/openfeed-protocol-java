@@ -7,11 +7,15 @@
 
 	<groupId>org.openfeed</groupId>
 	<artifactId>openfeed</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>2.0.0-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
 	<description>
 <![CDATA[
+
+### OpenFeed platform-independent Protocol Buffers templates and documents.
+
+OpenFeed is open standard for market data delivery.
 
 ]]>
 	</description>
@@ -23,9 +27,11 @@
 		<tag>master</tag>
 	</scm>
 
-
 	<properties>
-	
+
+		<!-- Control protocol templates dependency. -->
+		<projectTemplateVersion>2.0.0</projectTemplateVersion>
+
 		<barchartNexusURL>https://nexus.barchart.com</barchartNexusURL>
 		<barchartReleaseURL>${barchartNexusURL}/content/repositories/releases</barchartReleaseURL>
 		<barchartSnapshotsURL>${barchartNexusURL}/content/repositories/snapshots</barchartSnapshotsURL>
@@ -33,7 +39,6 @@
 		<templateMainJavaFolder>${basedir}/target/java/main</templateMainJavaFolder>
 		<templateTestJavaFolder>${basedir}/target/java/test</templateTestJavaFolder>
 
-		<projectTemplateVersion>1.0.8-SNAPSHOT</projectTemplateVersion>
 		<templateRootFolder>${basedir}/target/template</templateRootFolder>
 		<templateModuleName>openfeed</templateModuleName>
 		<templateModuleFolder>${templateRootFolder}/${templateModuleName}</templateModuleFolder>
@@ -42,30 +47,45 @@
 
 	<dependencies>
 
+		<!-- Protocol Buffers. -->
 		<dependency>
 			<groupId>com.google.protobuf</groupId>
 			<artifactId>protobuf-java</artifactId>
-			<version>2.5.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.4</version>
+			<version>[2.5,3-SNAPSHOT)</version>
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- Logging framework. -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>[1.7,2-SNAPSHOT)</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Logging provider for tests. -->
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<version>1.0.10</version>
-			<scope>provided</scope>
+			<scope>test</scope>
 		</dependency>
 
+		<!-- Testing framework. -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Ensure release with a non-snapshot template dependency. -->
+		<dependency>
+			<groupId>org.openfeed.proto</groupId>
+			<artifactId>openfeed-protocol</artifactId>
+			<version>${projectTemplateVersion}</version>
+			<classifier>template</classifier>
+			<type>zip</type>
 			<scope>test</scope>
 		</dependency>
 
@@ -74,7 +94,7 @@
 	<build>
 
 		<pluginManagement>
-		
+
 			<plugins>
 				<!--This plugin's configuration is used to store Eclipse m2e settings 
 					only. It has no influence on the Maven build itself. -->
@@ -135,7 +155,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore/>
+										<ignore />
 									</action>
 								</pluginExecution>
 							</pluginExecutions>
@@ -143,11 +163,12 @@
 					</configuration>
 				</plugin>
 			</plugins>
-			
+
 		</pluginManagement>
 
 		<plugins>
-		
+
+			<!-- Ensure java version. -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -158,6 +179,7 @@
 				</configuration>
 			</plugin>
 
+			<!-- Generate sources always. -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
@@ -298,7 +320,7 @@
 				</executions>
 			</plugin>
 
-
+			<!-- Generate OSGI bundle. -->
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
@@ -307,11 +329,11 @@
 			</plugin>
 
 		</plugins>
-		
+
 	</build>
 
 	<profiles>
-	
+
 		<!-- Private Barchart Nexus distribution; must activate. -->
 		<profile>
 			<id>barchart-nexus-distribution</id>
@@ -333,7 +355,7 @@
 				</repository>
 			</distributionManagement>
 		</profile>
-		
+
 		<!-- Semantic version check against baseline. -->
 		<profile>
 			<id>semantic-version</id>
@@ -351,7 +373,7 @@
 				</plugins>
 			</build>
 		</profile>
-		
+
 	</profiles>
 
 </project>
