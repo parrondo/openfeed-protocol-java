@@ -43,6 +43,9 @@ OpenFeed is open standard for market data delivery.
 		<templateModuleName>openfeed</templateModuleName>
 		<templateModuleFolder>${templateRootFolder}/${templateModuleName}</templateModuleFolder>
 
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
 	</properties>
 
 	<dependencies>
@@ -186,7 +189,7 @@ OpenFeed is open standard for market data delivery.
 					<execution>
 						<id>attach-sources</id>
 						<goals>
-							<goal>jar</goal>
+							<goal>jar-no-fork</goal>
 						</goals>
 					</execution>
 				</executions>
@@ -368,6 +371,17 @@ OpenFeed is open standard for market data delivery.
 					<plugin>
 						<groupId>org.apache.aries.versioning</groupId>
 						<artifactId>org.apache.aries.versioning.plugin</artifactId>
+						<version>0.1.0</version>
+						<configuration>
+							<oldArtifact>${project.groupId}:${project.artifactId}:jar:RELEASE</oldArtifact>
+						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>version-check</goal>
+								</goals>
+							</execution>
+						</executions>
 					</plugin>
 				</plugins>
 			</build>
