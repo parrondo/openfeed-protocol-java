@@ -54,7 +54,6 @@ OpenFeed is open standard for market data delivery.
 			<groupId>com.google.protobuf</groupId>
 			<artifactId>protobuf-java</artifactId>
 			<version>[2.5,3-SNAPSHOT)</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<!-- Logging framework. -->
