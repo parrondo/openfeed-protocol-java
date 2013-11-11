@@ -2,30 +2,24 @@ package org.openfeed.messaging;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.openfeed.messaging.encoding.EncodedOutput;
 
 public class MessageWriter {
 
-	private final Map<Class<?>, MessageCodec<Object>> map;
+	private final CodecRegistry codecRegistry;
 
-	public MessageWriter() {
-		this.map = new HashMap<Class<?>, MessageCodec<Object>>();
+	public MessageWriter(CodecRegistry codecRegistry) {
+		this.codecRegistry = codecRegistry;
 	}
 
 	@SuppressWarnings("unchecked")
-	public void register(MessageCodec<? extends Object> codec) {
-		map.put(codec.getMessageClass(), (MessageCodec<Object>) codec);
-	}
-
 	private MessageCodec<Object> findCodec(Object message) throws IOException {
-		MessageCodec<Object> codec = map.get(message.getClass());
+		MessageCodec<? extends Object> codec = codecRegistry.getCodecByClass(message.getClass());
 		if (codec == null) {
 			throw new IllegalArgumentException("Unknown codec for class " + message.getClass());
 		}
-		return codec;
+		return (MessageCodec<Object>) codec;
 	}
 
 	public void write(Object message, OutputStream os) throws IOException {

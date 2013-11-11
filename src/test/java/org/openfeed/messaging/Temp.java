@@ -11,9 +11,8 @@ public class Temp {
 	@Test
 	public void test() throws IOException {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		MessageWriter writer = new MessageWriter();
+		MessageWriter writer = new MessageWriter(CodecRegistry.create(new UTF8StringCodec()));
 		
-		writer.register(new UTF8StringCodec());
 		
 		writer.write("A", baos);
 		byte[] byteArray = baos.toByteArray();

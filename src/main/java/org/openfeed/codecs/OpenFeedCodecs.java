@@ -7,6 +7,7 @@ import org.openfeed.InstrumentDefinitionMessage;
 import org.openfeed.MarketSnapshotMessage;
 import org.openfeed.MarketUpdateMessage;
 import org.openfeed.OpenFeedMessageType;
+import org.openfeed.messaging.CodecRegistry;
 import org.openfeed.messaging.MessageCodec;
 
 public class OpenFeedCodecs {
@@ -102,5 +103,12 @@ public class OpenFeedCodecs {
 		}
 
 	};
+
+	public static final CodecRegistry REGISTRY = CodecRegistry.create( //
+			HEARTBEAT_MESSAGE_CODEC, //
+			INSTRUMENT_DEFINITION_MESSAGE_CODEC, //
+			MARKET_SNAPSHOT_MESSAGE_CODEC, //
+			MARKET_UPDATE_MESSAGE_CODEC //
+			);
 
 }
