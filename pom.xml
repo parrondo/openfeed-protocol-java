@@ -29,7 +29,7 @@ OpenFeed is open standard for market data delivery.
 	<properties>
 
 		<!-- Control protocol templates dependency. -->
-		<projectTemplateVersion>2.1.1</projectTemplateVersion>
+		<projectTemplateVersion>2.1.2-SNAPSHOT</projectTemplateVersion>
 
 		<barchartNexusURL>https://nexus.barchart.com</barchartNexusURL>
 		<barchartReleaseURL>${barchartNexusURL}/content/repositories/releases</barchartReleaseURL>

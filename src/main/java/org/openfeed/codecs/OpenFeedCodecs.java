@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.openfeed.HeartbeatMessage;
 import org.openfeed.InstrumentDefinitionMessage;
 import org.openfeed.MarketSnapshotMessage;
+import org.openfeed.MarketUpdate;
 import org.openfeed.MarketUpdateMessage;
 import org.openfeed.OpenFeedMessageType;
 import org.openfeed.messaging.CodecRegistry;
@@ -48,7 +49,7 @@ public class OpenFeedCodecs {
 
 		@Override
 		public int getTypeCode() {
-			return OpenFeedMessageType.INSTRUMENT_DEFINITION_VALUE;
+			return OpenFeedMessageType.INSTRUMENT_DEFINITION_MESSAGE_VALUE;
 		}
 
 		@Override
@@ -71,12 +72,35 @@ public class OpenFeedCodecs {
 
 		@Override
 		public int getTypeCode() {
-			return OpenFeedMessageType.MARKET_UPDATE_VALUE;
+			return OpenFeedMessageType.MARKET_UPDATE_MESSAGE_VALUE;
 		}
 
 		@Override
 		public Class<MarketUpdateMessage> getMessageClass() {
 			return MarketUpdateMessage.class;
+		}
+
+	};
+
+	public static final MessageCodec<MarketUpdate> MARKET_UPDATE_CODEC = new MessageCodec<MarketUpdate>() {
+		@Override
+		public MarketUpdate decode(byte[] bytes) throws IOException {
+			return MarketUpdate.parseFrom(bytes);
+		}
+
+		@Override
+		public byte[] encode(MarketUpdate message) throws IOException {
+			return message.toByteArray();
+		}
+
+		@Override
+		public int getTypeCode() {
+			return OpenFeedMessageType.MARKET_UPDATE_VALUE;
+		}
+
+		@Override
+		public Class<MarketUpdate> getMessageClass() {
+			return MarketUpdate.class;
 		}
 
 	};
@@ -94,7 +118,7 @@ public class OpenFeedCodecs {
 
 		@Override
 		public int getTypeCode() {
-			return OpenFeedMessageType.MARKET_SNAPSHOT_VALUE;
+			return OpenFeedMessageType.MARKET_SNAPSHOT_MESSAGE_VALUE;
 		}
 
 		@Override
@@ -108,7 +132,8 @@ public class OpenFeedCodecs {
 			HEARTBEAT_MESSAGE_CODEC, //
 			INSTRUMENT_DEFINITION_MESSAGE_CODEC, //
 			MARKET_SNAPSHOT_MESSAGE_CODEC, //
-			MARKET_UPDATE_MESSAGE_CODEC //
+			MARKET_UPDATE_MESSAGE_CODEC, //
+			MARKET_UPDATE_CODEC //
 			);
 
 }
