@@ -3,6 +3,7 @@ package org.openfeed.codecs;
 import java.io.IOException;
 
 import org.openfeed.HeartbeatMessage;
+import org.openfeed.InstrumentDefinition;
 import org.openfeed.InstrumentDefinitionMessage;
 import org.openfeed.MarketSnapshotMessage;
 import org.openfeed.MarketUpdate;
@@ -55,6 +56,29 @@ public class OpenFeedCodecs {
 		@Override
 		public Class<InstrumentDefinitionMessage> getMessageClass() {
 			return InstrumentDefinitionMessage.class;
+		}
+
+	};
+
+	public static final MessageCodec<InstrumentDefinition> INSTRUMENT_DEFINITION_CODEC = new MessageCodec<InstrumentDefinition>() {
+		@Override
+		public InstrumentDefinition decode(byte[] bytes) throws IOException {
+			return InstrumentDefinition.parseFrom(bytes);
+		}
+
+		@Override
+		public byte[] encode(InstrumentDefinition message) throws IOException {
+			return message.toByteArray();
+		}
+
+		@Override
+		public int getTypeCode() {
+			return OpenFeedMessageType.INSTRUMENT_DEFINITION_VALUE;
+		}
+
+		@Override
+		public Class<InstrumentDefinition> getMessageClass() {
+			return InstrumentDefinition.class;
 		}
 
 	};
@@ -131,9 +155,11 @@ public class OpenFeedCodecs {
 	public static final CodecRegistry REGISTRY = CodecRegistry.create( //
 			HEARTBEAT_MESSAGE_CODEC, //
 			INSTRUMENT_DEFINITION_MESSAGE_CODEC, //
+			INSTRUMENT_DEFINITION_CODEC, //
 			MARKET_SNAPSHOT_MESSAGE_CODEC, //
 			MARKET_UPDATE_MESSAGE_CODEC, //
 			MARKET_UPDATE_CODEC //
+			
 			);
 
 }
