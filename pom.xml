@@ -6,7 +6,7 @@
 
 	<groupId>org.openfeed</groupId>
 	<artifactId>openfeed</artifactId>
-	<version>2.1.2-SNAPSHOT</version>
+	<version>2.1.2</version>
 	<packaging>bundle</packaging>
 
 	<description>
