@@ -5,6 +5,8 @@ import java.io.IOException;
 import org.openfeed.HeartbeatMessage;
 import org.openfeed.InstrumentDefinition;
 import org.openfeed.InstrumentDefinitionMessage;
+import org.openfeed.MarketHistoricalSnapshot;
+import org.openfeed.MarketHistoricalSnapshotMessage;
 import org.openfeed.MarketSnapshot;
 import org.openfeed.MarketSnapshotMessage;
 import org.openfeed.MarketUpdate;
@@ -40,12 +42,14 @@ public class OpenFeedCodecs {
 
 	public static final MessageCodec<InstrumentDefinitionMessage> INSTRUMENT_DEFINITION_MESSAGE_CODEC = new MessageCodec<InstrumentDefinitionMessage>() {
 		@Override
-		public InstrumentDefinitionMessage decode(byte[] bytes) throws IOException {
+		public InstrumentDefinitionMessage decode(byte[] bytes)
+				throws IOException {
 			return InstrumentDefinitionMessage.parseFrom(bytes);
 		}
 
 		@Override
-		public byte[] encode(InstrumentDefinitionMessage message) throws IOException {
+		public byte[] encode(InstrumentDefinitionMessage message)
+				throws IOException {
 			return message.toByteArray();
 		}
 
@@ -176,13 +180,64 @@ public class OpenFeedCodecs {
 
 	};
 
+	public static final MessageCodec<MarketHistoricalSnapshotMessage> MARKET_HISTORICAL_SNAPSHOT_MESSAGE_CODEC = new MessageCodec<MarketHistoricalSnapshotMessage>() {
+		@Override
+		public MarketHistoricalSnapshotMessage decode(byte[] bytes)
+				throws IOException {
+			return MarketHistoricalSnapshotMessage.parseFrom(bytes);
+		}
+
+		@Override
+		public byte[] encode(MarketHistoricalSnapshotMessage message)
+				throws IOException {
+			return message.toByteArray();
+		}
+
+		@Override
+		public int getTypeCode() {
+			return OpenFeedMessageType.MARKET_HISTORICAL_SNAPSHOT_MESSAGE_VALUE;
+		}
+
+		@Override
+		public Class<MarketHistoricalSnapshotMessage> getMessageClass() {
+			return MarketHistoricalSnapshotMessage.class;
+		}
+
+	};
+
+	public static final MessageCodec<MarketHistoricalSnapshot> MARKET_HISTORICAL_SNAPSHOT_CODEC = new MessageCodec<MarketHistoricalSnapshot>() {
+		@Override
+		public MarketHistoricalSnapshot decode(byte[] bytes) throws IOException {
+			return MarketHistoricalSnapshot.parseFrom(bytes);
+		}
+
+		@Override
+		public byte[] encode(MarketHistoricalSnapshot message)
+				throws IOException {
+			return message.toByteArray();
+		}
+
+		@Override
+		public int getTypeCode() {
+			return OpenFeedMessageType.MARKET_HISTORICAL_SNAPSHOT_VALUE;
+		}
+
+		@Override
+		public Class<MarketHistoricalSnapshot> getMessageClass() {
+			return MarketHistoricalSnapshot.class;
+		}
+
+	};
+
 	public static final CodecRegistry REGISTRY = CodecRegistry.create( //
 			HEARTBEAT_MESSAGE_CODEC, //
 			INSTRUMENT_DEFINITION_MESSAGE_CODEC, //
 			INSTRUMENT_DEFINITION_CODEC, //
 			MARKET_SNAPSHOT_MESSAGE_CODEC, //
 			MARKET_UPDATE_MESSAGE_CODEC, //
-			MARKET_UPDATE_CODEC //
+			MARKET_UPDATE_CODEC, //
+			MARKET_HISTORICAL_SNAPSHOT_MESSAGE_CODEC, //
+			MARKET_HISTORICAL_SNAPSHOT_CODEC //
 
 			);
 
