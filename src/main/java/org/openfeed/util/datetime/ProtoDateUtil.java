@@ -1,5 +1,7 @@
 package org.openfeed.util.datetime;
 
+import org.joda.time.DateTime;
+
 public class ProtoDateUtil {
 	public static int YEAR_BITS = 11;
 	public static int YEAR_MASK = 0x7FF;
@@ -42,13 +44,13 @@ public class ProtoDateUtil {
 	}
 
 	/**
-	 * 
+	 *
 	 * binary-coded date/only fields:
-	 * 
+	 *
 	 * year.month.date
-	 * 
+	 *
 	 * size : 11.4.5 = 20 bits or 3 bytes
-	 * 
+	 *
 	 */
 	public static DateOnlyValue fromBinaryDateOnly(int value) {
 
@@ -65,13 +67,13 @@ public class ProtoDateUtil {
 	}
 
 	/**
-	 * 
+	 *
 	 * binary-coded date/time fields:
-	 * 
+	 *
 	 * year.month.date.hour.minute.second.millis
-	 * 
+	 *
 	 * size: 11.4.5.5.6.6.10 = 47 bits or 6 bytes
-	 * 
+	 *
 	 */
 	public static DateTimeValue fromBinaryDateTime(long value) {
 
@@ -100,15 +102,15 @@ public class ProtoDateUtil {
 	}
 
 	/**
-	 * 
+	 *
 	 * decimal-coded date/only fields
-	 * 
+	 *
 	 * year.month.date in digits
-	 * 
+	 *
 	 * 2012.07.04
-	 * 
+	 *
 	 * size = 4 bytes
-	 * 
+	 *
 	 */
 	public static DateOnlyValue fromDecimalDateOnly(int value) {
 
@@ -125,15 +127,15 @@ public class ProtoDateUtil {
 	}
 
 	/**
-	 * 
+	 *
 	 * decimal-coded date/time fields
-	 * 
+	 *
 	 * year.month.date.hour.minute.second.millis in digits :
-	 * 
+	 *
 	 * 2012.07.04.12.30.12.123
-	 * 
+	 *
 	 * size = 7 bytes
-	 * 
+	 *
 	 */
 	public static DateTimeValue fromDecimalDateTime(long value) {
 
@@ -161,6 +163,46 @@ public class ProtoDateUtil {
 
 	}
 
+	/**
+	 *
+	 * decimal-coded date/time fields
+	 *
+	 * year.month.date.hour.minute.second.millis in digits :
+	 *
+	 * 2012.07.04.12.30.12.123
+	 *
+	 * size = 7 bytes
+	 *
+	 * to joda DateTime
+	 *
+	 */
+	public static DateTime fromDecimalDateTimeToJoda(long value) {
+
+		final DateTimeValue dtv = fromDecimalDateTime(value);
+
+		return new DateTime(dtv.getYear(), dtv.getMonth(), dtv.getDay(), dtv.getHour(), dtv.getMinute(),
+				dtv.getSecond(), dtv.getMillis());
+
+	}
+
+	/**
+	 *
+	 * input: Joda DateTime time: 12/09/2014 06:34:000
+	 *
+	 * output: DateTimeValue
+	 *
+	 */
+	public static long fromJodaDateTimeToDecimalDateTime(DateTime value) {
+
+		return intoDecimalDateTime(new DateTimeValue(value.getYear(),
+				value.getMonthOfYear(),
+				value.getDayOfMonth(),
+				value.getHourOfDay(),
+				value.getMinuteOfHour(),
+				value.getSecondOfMinute(),
+				value.getMillisOfSecond()));
+	}
+
 	public static int intoBinaryDateOnly(final DateOnlyValue value) {
 		return intoBinaryDateOnly(value.getYear(), value.getMonth(), value.getDay());
 	}
@@ -169,7 +211,7 @@ public class ProtoDateUtil {
 			final int year, //
 			final int month, //
 			final int day //
-	) {
+			) {
 
 		int value = year;
 
@@ -192,7 +234,7 @@ public class ProtoDateUtil {
 				value.getMinute(), //
 				value.getSecond(), //
 				value.getMillis() //
-		);
+				);
 
 	}
 
@@ -204,7 +246,7 @@ public class ProtoDateUtil {
 			final int minute, //
 			final int second, //
 			final int millis //
-	) {
+			) {
 
 		long value = year;
 
@@ -238,7 +280,7 @@ public class ProtoDateUtil {
 			final int year, //
 			final int month, //
 			final int day //
-	) {
+			) {
 		return ((year * 100) + month) * 100 + day;
 	}
 
@@ -251,7 +293,7 @@ public class ProtoDateUtil {
 				value.getMinute(), //
 				value.getSecond(), //
 				value.getMillis() //
-		);
+				);
 	}
 
 	public static long intoDecimalDateTime(//
@@ -262,7 +304,7 @@ public class ProtoDateUtil {
 			final int minute, //
 			final int second, //
 			final int millis //
-	) {
+			) {
 		return (((((year * 100L + month) * 100L + day) * 100L + hour) * 100L + minute) * 100L + second) * 1000L + millis;
 	}
 
