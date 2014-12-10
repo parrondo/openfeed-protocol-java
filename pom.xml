@@ -6,7 +6,7 @@
 
 	<groupId>org.openfeed</groupId>
 	<artifactId>openfeed</artifactId>
-	<version>3.0.2-SNAPSHOT</version>
+	<version>2.1.7-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
 	<description>
@@ -29,7 +29,7 @@ OpenFeed is open standard for market data delivery.
 	<properties>
 
 		<!-- Control protocol templates dependency. -->
-		<projectTemplateVersion>3.0.1</projectTemplateVersion>
+		<projectTemplateVersion>2.1.4</projectTemplateVersion>
 
 		<barchartNexusURL>https://nexus.barchart.com</barchartNexusURL>
 		<barchartReleaseURL>${barchartNexusURL}/content/repositories/releases</barchartReleaseURL>
@@ -89,7 +89,13 @@ OpenFeed is open standard for market data delivery.
 			<type>zip</type>
 			<scope>test</scope>
 		</dependency>
-
+		
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>[2.3,2.4-SNAPSHOT]</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
