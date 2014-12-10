@@ -1,6 +1,7 @@
 package org.openfeed.util.datetime;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 public class ProtoDateUtil {
 	public static int YEAR_BITS = 11;
@@ -176,12 +177,12 @@ public class ProtoDateUtil {
 	 * to joda DateTime
 	 *
 	 */
-	public static DateTime fromDecimalDateTimeToJoda(long value) {
+	public static DateTime fromDecimalDateTimeToJoda(long value, DateTimeZone zone) {
 
 		final DateTimeValue dtv = fromDecimalDateTime(value);
 
 		return new DateTime(dtv.getYear(), dtv.getMonth(), dtv.getDay(), dtv.getHour(), dtv.getMinute(),
-				dtv.getSecond(), dtv.getMillis());
+				dtv.getSecond(), dtv.getMillis(), zone);
 
 	}
 
