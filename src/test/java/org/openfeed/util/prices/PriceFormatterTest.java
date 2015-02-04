@@ -203,6 +203,12 @@ public class PriceFormatterTest {
 		PriceFormat format = newPriceFormat(true, 8, 1, 0, 0);
 		check(format, "383-7", 383.875);
 	}
+	
+	@Test
+	public void testFractionalZero() {
+		PriceFormat format = newPriceFormat(true, 8, 1, 0, 0);
+		check(format, "0-0", 0.0);
+	}
 
 	private void check(PriceFormat format, String displayValue, double decimalValue) {
 		checkParse(format, displayValue, decimalValue);
