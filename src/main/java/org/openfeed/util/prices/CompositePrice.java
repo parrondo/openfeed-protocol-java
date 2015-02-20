@@ -110,6 +110,10 @@ public final class CompositePrice {
 	}
 
 	public static CompositePrice fromBase10(long mantissa, int exponent, PriceFormat format) {
+		while (exponent > 0) {
+			mantissa = mantissa * 10;
+			exponent--;
+		}
 		boolean isNegative = mantissa < 0;
 		mantissa = Math.abs(mantissa);
 		final long fractionMask = tenPow(-exponent);
