@@ -250,6 +250,26 @@ public final class CompositePrice {
 			return 10000000;
 		case 8:
 			return 100000000;
+		case 9:
+			return 1000000000;
+		case 10:
+			return 10000000000L;
+		case 11:
+			return 100000000000L;
+		case 12:
+			return 1000000000000L;
+		case 13:
+			return 10000000000000L;
+		case 14:
+			return 100000000000000L;
+		case 15:
+			return 1000000000000000L;
+		case 16:
+			return 10000000000000000L;
+		case 17:
+			return 100000000000000000L;
+		case 18:
+			return 1000000000000000000L;
 		default:
 			throw new IllegalArgumentException("Bad exponent: " + exponent);
 		}
