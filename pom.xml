@@ -31,9 +31,12 @@ OpenFeed is open standard for market data delivery.
 		<!-- Control protocol templates dependency. -->
 		<projectTemplateVersion>3.0.11</projectTemplateVersion>
 
-		<barchartNexusURL>https://nexus.barchart.com</barchartNexusURL>
-		<barchartReleaseURL>${barchartNexusURL}/content/repositories/releases</barchartReleaseURL>
-		<barchartSnapshotsURL>${barchartNexusURL}/content/repositories/snapshots</barchartSnapshotsURL>
+
+        <!-- Barchart private repository in Office. -->
+        <barchartNexusURL>https://nexus.barchart.com</barchartNexusURL>
+        <barchartArchonURL>${barchartNexusURL}/content/groups/archon</barchartArchonURL>
+        <barchartReleaseURL>${barchartNexusURL}/content/repositories/releases</barchartReleaseURL>
+        <barchartSnapshotsURL>${barchartNexusURL}/content/repositories/snapshots</barchartSnapshotsURL>
 
 		<templateMainJavaFolder>${basedir}/target/java/main</templateMainJavaFolder>
 		<templateTestJavaFolder>${basedir}/target/java/test</templateTestJavaFolder>
@@ -332,31 +335,53 @@ OpenFeed is open standard for market data delivery.
 
 	</build>
 
-	<profiles>
+        <!-- Private Barchart Nexus repository -->
+        <profile>
+            <id>barchart-nexus-repository</id>
+            <activation>
+                <file>
+                    <missing>maven-amazon.md</missing>
+                </file>
+            </activation>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>barchart-nexus-snapshots</id>
+                    <name>Barchart Nexus Snapshots</name>
+                    <url>${barchartSnapshotsURL}</url>
+                </snapshotRepository>
+                <repository>
+                    <id>barchart-nexus-releases</id>
+                    <name>Barchart Nexus Releases</name>
+                    <url>${barchartReleaseURL}</url>
+                </repository>
+            </distributionManagement>
+            <repositories>
+                <repository>
+                    <id>barchart-nexus-archon</id>
+                    <name>Barchart Nexus Archon / Regular</name>
+                    <url>${barchartArchonURL}</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>barchart-nexus-archon</id>
+                    <name>Barchart Nexus Archon / Plugins</name>
+                    <url>${barchartArchonURL}</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
 
-		<!-- Private Barchart Nexus distribution; must activate. -->
-		<profile>
-			<id>barchart-nexus-distribution</id>
-			<activation>
-				<file>
-					<exists>maven-barchart.md</exists>
-				</file>
-			</activation>
-			<distributionManagement>
-				<snapshotRepository>
-					<id>barchart-nexus-snapshots</id>
-					<name>Barchart Nexus Snapshots</name>
-					<url>${barchartSnapshotsURL}</url>
-				</snapshotRepository>
-				<repository>
-					<id>barchart-nexus-releases</id>
-					<name>Barchart Nexus Releases</name>
-					<url>${barchartReleaseURL}</url>
-				</repository>
-			</distributionManagement>
-		</profile>
-
-
-	</profiles>
+        </profile>
 
 </project>
