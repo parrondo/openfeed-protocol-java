@@ -335,6 +335,7 @@ OpenFeed is open standard for market data delivery.
 
 	</build>
 
+    <profiles>
         <!-- Private Barchart Nexus repository -->
         <profile>
             <id>barchart-nexus-repository</id>
@@ -383,5 +384,6 @@ OpenFeed is open standard for market data delivery.
             </pluginRepositories>
 
         </profile>
+    </profiles>
 
 </project>
