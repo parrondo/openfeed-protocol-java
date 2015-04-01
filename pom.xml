@@ -64,14 +64,12 @@ OpenFeed is open standard for market data delivery.
 		<dependency>
 			<groupId>com.google.protobuf</groupId>
 			<artifactId>protobuf-java</artifactId>
-			<version>[2.5,2.6-SNAPSHOT)</version>
 		</dependency>
 
 		<!-- Logging framework. -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>[1.7,2-SNAPSHOT)</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -79,7 +77,6 @@ OpenFeed is open standard for market data delivery.
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
-			<version>1.0.10</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -87,7 +84,6 @@ OpenFeed is open standard for market data delivery.
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -155,23 +151,6 @@ OpenFeed is open standard for market data delivery.
 									</action>
 								</pluginExecution>
 
-								<!-- Must use m2e build-helper-maven-plugin. -->
-								<!-- <pluginExecution> -->
-								<!-- <pluginExecutionFilter> -->
-								<!-- <groupId>org.codehaus.mojo</groupId> -->
-								<!-- <artifactId>build-helper-maven-plugin</artifactId> -->
-								<!-- <versionRange>[0,)</versionRange> -->
-								<!-- <goals> -->
-								<!-- <goal>add-resource</goal> -->
-								<!-- <goal>add-source</goal> -->
-								<!-- <goal>add-test-source</goal> -->
-								<!-- </goals> -->
-								<!-- </pluginExecutionFilter> -->
-								<!-- <action> -->
-								<!-- <ignore /> -->
-								<!-- </action> -->
-								<!-- </pluginExecution> -->
-
 							</pluginExecutions>
 						</lifecycleMappingMetadata>
 					</configuration>
@@ -182,32 +161,6 @@ OpenFeed is open standard for market data delivery.
 		</pluginManagement>
 
 		<plugins>
-
-			<!-- Ensure java version. -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-
-			<!-- Generate sources always. -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>2.2.1</version>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar-no-fork</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 
 			<!-- Extract all protocol templates. -->
 			<plugin>
@@ -244,7 +197,6 @@ OpenFeed is open standard for market data delivery.
 			<plugin>
 				<groupId>com.github.igor-petruk.protobuf</groupId>
 				<artifactId>protobuf-maven-plugin</artifactId>
-				<version>0.6.3</version>
 				<executions>
 					<!-- Generate main sources. -->
 					<execution>
@@ -290,7 +242,6 @@ OpenFeed is open standard for market data delivery.
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>1.8</version>
 				<executions>
 					<!-- Add protocol template folders. -->
 					<execution>
@@ -340,7 +291,6 @@ OpenFeed is open standard for market data delivery.
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
-				<version>2.4.0</version>
 				<extensions>true</extensions>
 			</plugin>
 
@@ -348,59 +298,5 @@ OpenFeed is open standard for market data delivery.
 
 	</build>
 
-	<profiles>
-
-		<!-- Private Barchart Nexus distribution; must activate. -->
-		<profile>
-			<id>barchart-nexus-distribution</id>
-			<activation>
-				<file>
-					<exists>maven-barchart.md</exists>
-				</file>
-			</activation>
-			<distributionManagement>
-				<snapshotRepository>
-					<id>barchart-nexus-snapshots</id>
-					<name>Barchart Nexus Snapshots</name>
-					<url>${barchartSnapshotsURL}</url>
-				</snapshotRepository>
-				<repository>
-					<id>barchart-nexus-releases</id>
-					<name>Barchart Nexus Releases</name>
-					<url>${barchartReleaseURL}</url>
-				</repository>
-			</distributionManagement>
-		</profile>
-
-		<!-- Semantic version check against baseline. -->
-		<profile>
-			<id>semantic-version</id>
-			<activation>
-				<file>
-					<missing>disable-semantic-version.md</missing>
-				</file>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.aries.versioning</groupId>
-						<artifactId>org.apache.aries.versioning.plugin</artifactId>
-						<version>0.1.0</version>
-						<configuration>
-							<oldArtifact>${project.groupId}:${project.artifactId}:jar:RELEASE</oldArtifact>
-						</configuration>
-						<executions>
-							<execution>
-								<goals>
-									<goal>version-check</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-
-	</profiles>
 
 </project>
