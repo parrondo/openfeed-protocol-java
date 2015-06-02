@@ -207,7 +207,7 @@ OpenFeed is open standard for market data delivery.
 						</goals>
 						<configuration>
 							<addSources>none</addSources>
-							<ignoreVersions>true</ignoreVersions>
+							<ignoreVersions>false</ignoreVersions>
 							<includeDirectories>
 								<entry>${templateModuleFolder}</entry>
 								<entry>${basedir}/src/main/resources</entry>
