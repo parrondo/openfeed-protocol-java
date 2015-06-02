@@ -1,5 +1,6 @@
 package org.openfeed.util.datetime;
 
+@Deprecated
 public class DateTimeValue extends DateOnlyValue {
 
 	private final byte hour;

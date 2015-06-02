@@ -1,5 +1,6 @@
 package org.openfeed.util.datetime;
 
+@Deprecated
 public class DateOnlyValue {
 
 	private final short year;

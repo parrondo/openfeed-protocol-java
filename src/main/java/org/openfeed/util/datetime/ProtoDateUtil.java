@@ -3,6 +3,7 @@ package org.openfeed.util.datetime;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
+@Deprecated
 public class ProtoDateUtil {
 	public static int YEAR_BITS = 11;
 	public static int YEAR_MASK = 0x7FF;
