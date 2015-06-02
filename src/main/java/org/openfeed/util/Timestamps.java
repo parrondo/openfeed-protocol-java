@@ -6,19 +6,19 @@ import org.openfeed.util.datetime.ProtoDateUtil;
 
 public class Timestamps {
 	
-	public long currentDecimalDateTime() {
+	public static long currentDecimalDateTime() {
 		return toDecimalDateTime(DateTime.now());
 	}
 
-	public long toDecimalDateTime(DateTime dateTime) {
+	public static long toDecimalDateTime(DateTime dateTime) {
 		return ProtoDateUtil.fromJodaDateTimeToDecimalDateTime(dateTime);
 	}
 	
-	public DateTime fromDecimalDateTime(long decimalDateTime) {
+	public static DateTime fromDecimalDateTime(long decimalDateTime) {
 		return fromDecimalDateTime(decimalDateTime, DateTimeZone.UTC);
 	}
 	
-	public DateTime fromDecimalDateTime(long decimalDateTime, DateTimeZone zone) {
+	public static DateTime fromDecimalDateTime(long decimalDateTime, DateTimeZone zone) {
 		return ProtoDateUtil.fromDecimalDateTimeToJoda(decimalDateTime, zone);
 	}
 	
