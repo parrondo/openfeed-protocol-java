@@ -37,7 +37,7 @@ OpenFeed is open standard for market data delivery.
 	<properties>
 
 		<!-- Control protocol templates dependency. -->
-		<projectTemplateVersion>3.0.14</projectTemplateVersion>
+		<projectTemplateVersion>3.0.15</projectTemplateVersion>
 
 
 		<!-- Barchart private repository in Office. -->
