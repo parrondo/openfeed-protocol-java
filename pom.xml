@@ -14,7 +14,7 @@
 
 	<groupId>org.openfeed</groupId>
 	<artifactId>openfeed</artifactId>
-	<version>3.0.18</version>
+	<version>3.0.19-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
 	<description>
@@ -31,7 +31,7 @@ OpenFeed is open standard for market data delivery.
 		<url>https://github.com/openfeed-project/openfeed-protocol-java</url>
 		<connection>scm:git:git://github.com/openfeed-project/openfeed-protocol-java.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/openfeed-project/openfeed-protocol-java.git</developerConnection>
-		<tag>openfeed-3.0.18</tag>
+		<tag>master</tag>
 	</scm>
 
 	<properties>
