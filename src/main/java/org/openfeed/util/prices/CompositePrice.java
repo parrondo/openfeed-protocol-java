@@ -69,7 +69,8 @@ public final class CompositePrice {
 		int mainDenominator = format.getDenominator() == 0 ? 1 : format.getDenominator();
 		int subDenominator = format.getSubDenominator() == 0 ? 1 : format.getSubDenominator();
 
-		long combinedNumerator = (wholePart * mainDenominator * subDenominator) + (mainNumerator * subDenominator) + subNumerator;
+		long combinedNumerator = (wholePart * mainDenominator * subDenominator) + (mainNumerator * subDenominator)
+				+ subNumerator;
 
 		long combinedDenominator = mainDenominator * subDenominator;
 
@@ -101,7 +102,8 @@ public final class CompositePrice {
 
 	@Override
 	public String toString() {
-		String str = wholePart + " + (" + mainNumerator + " + (" + subNumerator + " / " + format.getSubDenominator() + ")) / " + format.getDenominator() + "";
+		String str = wholePart + " + (" + mainNumerator + " + (" + subNumerator + " / " + format.getSubDenominator()
+				+ ")) / " + format.getDenominator() + "";
 		if (isNegative) {
 			return "-(" + str + ")";
 		} else {
@@ -122,7 +124,17 @@ public final class CompositePrice {
 		long partialPart = Math.abs(mantissa % fractionMask);
 		long extendedFraction = partialPart * format.getDenominator();
 
-		int mainNumerator = (int) (extendedFraction / fractionMask);
+		int mainNumerator = 0;
+		if (format.getSubFormat() == PriceFormat.SubFormat.FLAT) {
+			/*
+			 * Perform rounding when no sub formats (fractions, decimals) are
+			 * used
+			 */
+			mainNumerator = (int) Math.round((double) extendedFraction / (double) fractionMask);
+		} else {
+			mainNumerator = (int) (extendedFraction / fractionMask);
+
+		}
 
 		long secondaryPartial = extendedFraction % fractionMask;
 		int subNumerator = (int) ((secondaryPartial * format.getSubDenominator()) / fractionMask);
@@ -158,7 +170,8 @@ public final class CompositePrice {
 
 		int binaryExponent = (int) ((bits >> 52) & 0x7ffL);
 
-		final long binaryMantissa = (binaryExponent == 0 ? (bits & ((1L << 52) - 1)) << 1 : (bits & ((1L << 52) - 1)) | (1L << 52));
+		final long binaryMantissa = (binaryExponent == 0 ? (bits & ((1L << 52) - 1)) << 1 : (bits & ((1L << 52) - 1))
+				| (1L << 52));
 
 		binaryExponent -= 1075;
 
